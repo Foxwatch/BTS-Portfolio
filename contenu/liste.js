@@ -9,8 +9,19 @@
    ========================================================================== */
 window.LISTE_CONTENU = [
   // Informations générales
-  "profil.js"
+  "profil.js",
+  "competences.js",
 
-  // Les compétences, les situations et la veille technologique
-  // seront ajoutées ici aux prochaines étapes.
+  // Situations (dans l'ordre d'affichage)
+  "situations/inventaire-ad.js",
+  "situations/arrivee-depart.js",
+  "situations/etiquetage-tablettes.js",
+  "situations/deploiement-postes.js",
+  "situations/documentation-n1.js",
+  "situations/adguard-home.js",
+  "situations/fortiwifi.js",
+  "situations/audit-visibilite.js",
+  "situations/lab-mode-projet.js"
+
+  // La veille technologique sera ajoutée ici à l'étape 4.
 ];

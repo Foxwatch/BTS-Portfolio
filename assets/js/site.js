@@ -293,6 +293,155 @@
     );
   };
 
+  /* ---- Liens entre situations et compétences ----
+     Ce sont les situations qui déclarent les savoir-faire qu'elles valident.
+     Tout le reste (pages compétences, tableau de couverture) en est déduit. */
+
+  var TYPES = {
+    pro:   { court: "Pro",          long: "Situation professionnelle" },
+    perso: { court: "Projet perso", long: "Projet personnel" },
+    ecole: { court: "Pédagogique",  long: "Situation pédagogique" }
+  };
+
+  function situationsPubliees() {
+    return SITE.situations.filter(function (s) { return s.statut === "publie"; });
+  }
+
+  function lienSituation(s) { return "situation.html?id=" + encodeURIComponent(s.id); }
+  function lienCompetence(c) { return "competence.html?id=" + encodeURIComponent(c.code); }
+
+  // Situations publiées qui valident ce savoir-faire précis (ex. "B1.1.1")
+  function preuvesSavoirFaire(code) {
+    return situationsPubliees().filter(function (s) { return (s.competences || []).indexOf(code) !== -1; });
+  }
+
+  // Situations publiées qui valident au moins un savoir-faire de la compétence
+  function preuvesCompetence(c) {
+    var codes = c.savoirFaire.map(function (sf) { return sf.code; });
+    return situationsPubliees().filter(function (s) {
+      return (s.competences || []).some(function (code) { return codes.indexOf(code) !== -1; });
+    });
+  }
+
+  // Règle du prof : on n'affiche que les compétences prouvées
+  function competencesAffichees() {
+    return SITE.competences.filter(function (c) { return preuvesCompetence(c).length > 0; });
+  }
+
+  function etiquetteType(s) {
+    var t = TYPES[s.type] || { court: s.type };
+    return '<span class="etiquette etiquette-' + echapper(s.type) + '">' + echapper(t.court) + "</span>";
+  }
+
+  function numeroSituation(s) { return "SIT-" + String(s.numero).padStart(2, "0"); }
+
+  // Fil d'Ariane des pages détail
+  function filAriane(parent, lien, actuel) {
+    return '<nav class="fil-ariane" aria-label="Fil d\'Ariane"><a href="' + lien + '">' + echapper(parent) + "</a>" +
+      '<span aria-hidden="true">/</span><span aria-current="page">' + echapper(actuel) + "</span></nav>";
+  }
+
+  // Carte « switch » d'une compétence : chaque situation qui la prouve est un port branché
+  function carteCompetence(c) {
+    var preuves = preuvesCompetence(c);
+    var ports = preuves.map(function (s) {
+      return '<li><span class="port-n">' + numeroSituation(s) + '</span><a href="' + lienSituation(s) + '">' + echapper(s.titre) + "</a>" + etiquetteType(s) + "</li>";
+    }).join("");
+    return '<article class="switch">' +
+      '<div class="switch-haut"><span><span class="voyant" aria-hidden="true"></span>' + echapper(c.code) + "</span>" +
+      "<span>" + preuves.length + " port" + (preuves.length > 1 ? "s" : "") + " actif" + (preuves.length > 1 ? "s" : "") + "</span></div>" +
+      '<h3><a href="' + lienCompetence(c) + '">' + echapper(c.titre) + "</a></h3>" +
+      '<ul class="ports">' + ports + "</ul>" +
+      '<a class="bouton" href="' + lienCompetence(c) + '">Voir la compétence <span aria-hidden="true">→</span></a>' +
+      "</article>";
+  }
+
+  // Tableau de synthèse : savoir-faire (lignes) × situations (colonnes)
+  function tableauCouverture(competences) {
+    var sits = situationsPubliees();
+    var entete = "<tr><th scope=\"col\">Savoir-faire</th>" + sits.map(function (s) {
+      return '<th scope="col"><a href="' + lienSituation(s) + '" title="' + echapper(s.titre) + '">' + numeroSituation(s) + "</a></th>";
+    }).join("") + "</tr>";
+    var lignes = competences.map(function (c) {
+      var groupe = '<tr class="groupe"><th scope="rowgroup" colspan="' + (sits.length + 1) + '"><a href="' + lienCompetence(c) + '">' + echapper(c.code) + " · " + echapper(c.titre) + "</a></th></tr>";
+      return groupe + c.savoirFaire.map(function (sf) {
+        return '<tr><th scope="row"><span class="code">' + echapper(sf.code) + "</span> " + echapper(sf.texte) + "</th>" + sits.map(function (s) {
+          var ok = (s.competences || []).indexOf(sf.code) !== -1;
+          return ok ? '<td class="oui"><span aria-hidden="true">●</span><span class="sr">validé par ' + numeroSituation(s) + "</span></td>" : "<td></td>";
+        }).join("") + "</tr>";
+      }).join("");
+    }).join("");
+    return '<div class="tableau-defilant"><table class="couverture">' + "<thead>" + entete + "</thead><tbody>" + lignes + "</tbody></table></div>" +
+      '<p class="legende">' + sits.map(function (s) { return "<span><b>" + numeroSituation(s) + "</b> " + echapper(s.titre) + "</span>"; }).join("") + "</p>";
+  }
+
+  // ---- Compétences (vue d'ensemble) ----
+  PAGES.competences = function () {
+    var liste = competencesAffichees();
+    return (
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Épreuve E4 · Bloc 1</p><h1>Compétences</h1></div>' +
+        '<div class="texte"><p>Les compétences du bloc 1 que j\'ai mobilisées en entreprise, à l\'école et dans mes projets personnels. Chacune est prouvée par au moins une situation : ses « ports actifs » mènent directement aux situations qui la valident.</p></div>' +
+        '<div class="grille-switchs">' + liste.map(carteCompetence).join("") + "</div>" +
+      "</section>" +
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Synthèse</p><h2>Tableau de couverture</h2></div>' +
+        '<div class="texte"><p>Chaque point indique qu\'une situation valide le savoir-faire de la ligne.</p></div>' +
+        tableauCouverture(liste) +
+      "</section>"
+    );
+  };
+
+  // ---- Compétence (page détail, « 4.b ») ----
+  PAGES.competence = function () {
+    var code = new URLSearchParams(location.search).get("id");
+    var c = competencesAffichees().filter(function (x) { return x.code === code; })[0];
+    if (!c) {
+      return '<section class="planche section"><h1>Compétence introuvable</h1><p>Cette compétence n\'existe pas ou n\'est pas encore prouvée.</p>' +
+        '<p><a class="bouton" href="competences.html">Retour aux compétences</a></p></section>';
+    }
+    document.title = c.code + " " + c.titre + " · " + SITE.profil.prenom + " " + SITE.profil.nom;
+    var preuves = preuvesCompetence(c);
+
+    var savoirFaire = c.savoirFaire.map(function (sf) {
+      var sits = preuvesSavoirFaire(sf.code);
+      var liens = sits.length
+        ? sits.map(function (s) { return '<a class="puce-lien" href="' + lienSituation(s) + '">' + numeroSituation(s) + "</a>"; }).join("")
+        : '<span class="sans-preuve">Pas encore de situation</span>';
+      return '<li class="' + (sits.length ? "couvert" : "non-couvert") + '"><span class="code">' + echapper(sf.code) + "</span>" +
+        '<span class="sf-texte">' + echapper(sf.texte) + '</span><span class="sf-preuves">' + liens + "</span></li>";
+    }).join("");
+
+    var indicateurs = c.indicateurs && c.indicateurs.length
+      ? '<section class="section"><div class="section-tete"><h2>Indicateurs de l\'épreuve</h2></div><div class="texte"><ul>' +
+        c.indicateurs.map(function (i) { return "<li>" + formaterLigne(i) + "</li>"; }).join("") + "</ul></div></section>"
+      : "";
+
+    var cartes = preuves.map(function (s) {
+      var codes = (s.competences || []).filter(function (x) { return x.indexOf(c.code + ".") === 0; });
+      return '<article class="carte-situation">' +
+        '<div class="switch-haut"><span>' + numeroSituation(s) + "</span><span>" + echapper(s.lieu) + "</span></div>" +
+        '<div class="carte-corps"><h3><a href="' + lienSituation(s) + '">' + echapper(s.titre) + "</a></h3>" +
+        '<div class="texte">' + formater(s.resume) + "</div>" +
+        '<p class="etiquettes">' + etiquetteType(s) + codes.map(function (x) { return '<span class="etiquette">' + echapper(x) + "</span>"; }).join("") + "</p>" +
+        '<a class="bouton accent" href="' + lienSituation(s) + '">Lire la situation <span aria-hidden="true">→</span></a></div>' +
+        "</article>";
+    }).join("");
+
+    return (
+      filAriane("Compétences", "competences.html", c.code) +
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Compétence ' + echapper(c.code) + "</p><h1>" + echapper(c.titre) + "</h1></div>" +
+        '<div class="texte">' + formater(c.description) + "</div>" +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Savoir-faire du référentiel</h2></div>' +
+        '<ul class="savoir-faire">' + savoirFaire + "</ul></section>" +
+      indicateurs +
+      '<section class="section"><div class="section-tete"><h2>Situations qui valident cette compétence</h2></div>' +
+        '<div class="grille-cartes">' + cartes + "</div></section>"
+    );
+  };
+
   // ---- Pages pas encore construites (remplacées au fil des étapes) ----
   function pageEnConstruction(id) {
     var entree = MENU.filter(function (m) { return m.id === (PAGES_DETAIL[id] || id); })[0];
@@ -319,7 +468,10 @@
   }
 
   // Outils mis à disposition des futures pages (et de la page de vérification)
-  SITE.outils = { formater: formater, formaterLigne: formaterLigne, echapper: echapper, menu: MENU };
+  SITE.outils = {
+    formater: formater, formaterLigne: formaterLigne, echapper: echapper, menu: MENU,
+    preuvesCompetence: preuvesCompetence, competencesAffichees: competencesAffichees, situationsPubliees: situationsPubliees
+  };
 
   demarrer();
 })();

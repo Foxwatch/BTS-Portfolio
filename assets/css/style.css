@@ -329,3 +329,75 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* Bloc de code (commandes, extraits de script) */
 .texte pre { margin: 0; background: var(--encre); color: var(--blanc); padding: 14px 16px; border-radius: 4px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
 .texte pre code { background: none; padding: 0; color: inherit; }
+
+/* ==========================================================================
+   ÉLÉMENTS PARTAGÉS PAR LES PAGES COMPÉTENCES ET SITUATIONS
+   ========================================================================== */
+
+/* Texte réservé aux lecteurs d'écran */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Fil d'Ariane (pages détail) */
+.fil-ariane { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--police-mono); font-size: 0.8rem; color: var(--encre-doux); margin-bottom: -24px; }
+.fil-ariane a { color: var(--encre); }
+
+/* Étiquettes (type de situation, code de savoir-faire) */
+.etiquettes { display: flex; flex-wrap: wrap; gap: 6px; }
+.etiquette { font-family: var(--police-mono); font-size: 0.7rem; line-height: 1.6; padding: 1px 7px; border: 1.5px solid var(--encre); border-radius: 2px; white-space: nowrap; color: var(--encre); background: var(--blanc); }
+.etiquette-pro { background: var(--encre); color: var(--blanc); }
+.etiquette-perso { border-color: var(--signal-fonce); color: var(--signal-fonce); }
+.etiquette-ecole { border-style: dashed; }
+
+/* Carte « switch » d'une compétence */
+.grille-switchs, .grille-cartes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; align-items: start; }
+.switch, .carte-situation { background: var(--blanc); border: 2px solid var(--encre); border-radius: 4px; display: grid; min-width: 0; }
+.switch { gap: 0; }
+.switch-haut { display: flex; justify-content: space-between; gap: 12px; padding: 8px 14px; border-bottom: 2px solid var(--encre); font-family: var(--police-mono); font-size: 0.78rem; }
+.voyant { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--signal); margin-right: 8px; vertical-align: 1px; }
+.switch h3 { padding: 14px 14px 6px; }
+.switch h3 a, .carte-situation h3 a { text-decoration: none; }
+.switch h3 a:hover, .carte-situation h3 a:hover { text-decoration: underline; text-decoration-color: var(--signal); }
+.ports { list-style: none; margin: 0; padding: 6px 14px 16px; display: grid; gap: 8px; }
+.ports li { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 0.9rem; line-height: 1.35; }
+.port-n { font-family: var(--police-mono); font-size: 0.7rem; text-align: center; padding: 3px 0; background: var(--encre); color: var(--blanc); border-radius: 2px; }
+.ports a { text-decoration: none; }
+.ports a:hover { text-decoration: underline; text-decoration-color: var(--signal); }
+.switch .bouton { margin: 0 14px 16px; justify-self: start; }
+
+/* Carte d'une situation */
+.carte-corps { display: grid; gap: 12px; padding: 14px; }
+.carte-corps .bouton { justify-self: start; }
+
+/* Liste des savoir-faire d'une compétence, avec leurs preuves */
+.savoir-faire { list-style: none; margin: 0; padding: 0; display: grid; border: 2px solid var(--encre); border-radius: 4px; background: var(--blanc); }
+.savoir-faire li { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--encre-trait); }
+.savoir-faire li:last-child { border-bottom: 0; }
+.savoir-faire .code { font-family: var(--police-mono); font-size: 0.8rem; color: var(--encre-doux); }
+.savoir-faire .non-couvert .sf-texte { color: var(--encre-doux); }
+.sf-preuves { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.puce-lien { font-family: var(--police-mono); font-size: 0.75rem; padding: 2px 8px; background: var(--encre); color: var(--blanc); border-radius: 2px; text-decoration: none; }
+.puce-lien:hover { background: var(--signal-fonce); color: var(--blanc); }
+.sans-preuve { font-family: var(--police-mono); font-size: 0.72rem; color: var(--encre-doux); }
+@media (max-width: 560px) {
+  .savoir-faire li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .sf-preuves { justify-content: flex-start; }
+}
+
+/* Tableau de couverture (défile horizontalement sur téléphone) */
+.tableau-defilant { position: relative; overflow-x: auto; border: 2px solid var(--encre); border-radius: 4px; background: var(--blanc); }
+.couverture { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+.couverture th, .couverture td { border-bottom: 1px solid var(--encre-trait); padding: 8px 10px; text-align: left; vertical-align: middle; }
+.couverture thead th { font-family: var(--police-mono); font-size: 0.72rem; font-weight: 500; background: var(--encre); color: var(--blanc); white-space: nowrap; text-align: center; }
+.couverture thead th:first-child { text-align: left; }
+.couverture thead a { color: var(--blanc); text-decoration: none; }
+.couverture tbody th { font-weight: 400; min-width: 240px; }
+.couverture .code { font-family: var(--police-mono); font-size: 0.75rem; color: var(--encre-doux); margin-right: 6px; }
+.couverture .groupe th { background: var(--papier); font-family: var(--police-titre); font-weight: 600; font-size: 1rem; }
+.couverture .groupe a { text-decoration: none; }
+.couverture td { text-align: center; width: 72px; }
+.couverture td.oui { color: var(--signal-fonce); font-size: 1.1rem; }
+.legende { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 0.82rem; color: var(--encre-doux); }
+.legende b { font-family: var(--police-mono); font-weight: 500; color: var(--encre); }
+
+/* Empêche un tableau large d'élargir toute la page sur téléphone */
+main > *, .section > * { min-width: 0; }
