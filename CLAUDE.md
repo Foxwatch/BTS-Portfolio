@@ -128,7 +128,7 @@ compétence = switch dont chaque situation est un port branché.
 |---|---|---|
 | 1 | Moteur, en-tête, menu responsive, accueil | ✅ fait |
 | 2 | Compétences + page compétence + tableau de couverture | ✅ fait |
-| 3 | Situations + page situation (tutoriel) | ⏳ à faire |
+| 3 | Situations + page situation (tutoriel) | ✅ fait (sit. 1, 2, 6 rédigées ; captures à fournir) |
 | 4 | Veille technologique + page exemple | ⏳ |
 | 5 | Entreprise, CV, Réalisations | ⏳ |
 | 6 | verification.html, README.md | ⏳ |
@@ -148,8 +148,26 @@ compétence = switch dont chaque situation est un port branché.
 | 8 | audit-visibilite | pro | brouillon (à réaliser) | B1.3.2 |
 | 9 | lab-mode-projet | ecole | brouillon (à réaliser) | B1.4.1-3, T.1 |
 
-Les situations 1, 2 et 6 sont « publie » mais leur contexte, déroulé et
-conclusion sont encore `[À COMPLÉTER]` : c'est l'étape 3.
+Les situations 1, 2 et 6 sont rédigées. Leurs captures manquent : chaque
+emplacement affiche le chemin exact du fichier attendu et ce qu'il faut masquer.
+Dès qu'un fichier est déposé à ce chemin, il s'affiche. Quelques
+`[À COMPLÉTER]` restent (sit. 1 : méthode d'extraction et de comparaison ;
+sit. 6 : téléchargement d'AdGuard, journal des requêtes du téléphone).
+
+### Modèle d'une situation
+
+```js
+ajouterSituation({
+  id: "mon-id", numero: 10, statut: "publie", type: "pro", lieu: "Emera",
+  titre: "…", competences: ["B1.2.1"], outils: ["…"], resume: `…`,
+  contexte: { role: "…", objectif: "…", raison: "…" },
+  etapes: [
+    { titre: "…", texte: `…`,
+      captures: [{ fichier: "e4_sit10_etape1_….png", legende: "…", masquer: "…" }] }
+  ],
+  conclusion: `…`
+});
+```
 
 ## 8. Matière déjà connue (validée par Adaim, sans données internes)
 

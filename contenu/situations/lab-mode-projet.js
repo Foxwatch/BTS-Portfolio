@@ -15,13 +15,17 @@ ajouterSituation({
     [À COMPLÉTER : prochain lab en trio, avec le kit projet]
   `,
 
-  contexte: `
-    [À COMPLÉTER : rédigé à l'étape 3]
-  `,
+  contexte: {
+    role: "[À COMPLÉTER]",
+    objectif: "[À COMPLÉTER]",
+    raison: "[À COMPLÉTER]"
+  },
+
+  outils: [],
 
   etapes: [],
 
   conclusion: `
-    [À COMPLÉTER : rédigé à l'étape 3]
+    [À COMPLÉTER]
   `
 });

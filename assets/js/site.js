@@ -239,7 +239,11 @@
   // Remplace une image introuvable par son emplacement « à fournir »
   function surveillerImages() {
     document.querySelectorAll("img[data-si-absente]").forEach(function (img) {
-      function remplacer() { img.outerHTML = img.getAttribute("data-si-absente"); }
+      function remplacer() {
+        // Si l'image est dans un lien « agrandir », on remplace le lien entier
+        var cible = img.parentElement && img.parentElement.tagName === "A" ? img.parentElement : img;
+        cible.outerHTML = img.getAttribute("data-si-absente");
+      }
       if (img.complete && img.naturalWidth === 0) remplacer();
       else img.addEventListener("error", remplacer);
     });
@@ -417,16 +421,7 @@
         c.indicateurs.map(function (i) { return "<li>" + formaterLigne(i) + "</li>"; }).join("") + "</ul></div></section>"
       : "";
 
-    var cartes = preuves.map(function (s) {
-      var codes = (s.competences || []).filter(function (x) { return x.indexOf(c.code + ".") === 0; });
-      return '<article class="carte-situation">' +
-        '<div class="switch-haut"><span>' + numeroSituation(s) + "</span><span>" + echapper(s.lieu) + "</span></div>" +
-        '<div class="carte-corps"><h3><a href="' + lienSituation(s) + '">' + echapper(s.titre) + "</a></h3>" +
-        '<div class="texte">' + formater(s.resume) + "</div>" +
-        '<p class="etiquettes">' + etiquetteType(s) + codes.map(function (x) { return '<span class="etiquette">' + echapper(x) + "</span>"; }).join("") + "</p>" +
-        '<a class="bouton accent" href="' + lienSituation(s) + '">Lire la situation <span aria-hidden="true">→</span></a></div>' +
-        "</article>";
-    }).join("");
+    var cartes = preuves.map(function (s) { return carteSituation(s, c.code); }).join("");
 
     return (
       filAriane("Compétences", "competences.html", c.code) +
@@ -439,6 +434,133 @@
       indicateurs +
       '<section class="section"><div class="section-tete"><h2>Situations qui valident cette compétence</h2></div>' +
         '<div class="grille-cartes">' + cartes + "</div></section>"
+    );
+  };
+
+  /* ---- Captures d'écran ----
+     Si le fichier n'existe pas encore, on affiche à la place un emplacement
+     qui indique le chemin exact où déposer la capture, ce qu'elle doit montrer
+     et ce qu'il faut masquer. Dès que le fichier est déposé, il s'affiche. */
+  var compteurFigures = 0;
+
+  function capture(c, dossier) {
+    compteurFigures++;
+    var chemin = dossier + c.fichier;
+    var vide = '<div class="capture-vide">' +
+      '<span class="libelle">Capture à fournir</span>' +
+      "<code>" + echapper(chemin) + "</code>" +
+      (c.masquer ? '<span class="capture-masquer"><b>À masquer :</b> ' + echapper(c.masquer) + "</span>" : "") +
+      "</div>";
+    return '<figure class="capture">' +
+      '<a href="' + echapper(chemin) + '" target="_blank" rel="noopener" title="Agrandir la capture">' +
+      '<img src="' + echapper(chemin) + '" alt="' + echapper(c.legende) + '" data-si-absente="' + echapper(vide) + '"></a>' +
+      '<figcaption><span class="libelle">Fig. ' + compteurFigures + "</span> " + formaterLigne(c.legende) + "</figcaption></figure>";
+  }
+
+  function situationParId(id) {
+    return situationsPubliees().filter(function (s) { return s.id === id; })[0];
+  }
+
+  // Compétences (et savoir-faire) validées par une situation, regroupées
+  function competencesDeSituation(s) {
+    return SITE.competences.map(function (c) {
+      var sf = c.savoirFaire.filter(function (x) { return (s.competences || []).indexOf(x.code) !== -1; });
+      return { competence: c, savoirFaire: sf };
+    }).filter(function (g) { return g.savoirFaire.length; });
+  }
+
+  // Carte d'une situation (pages Situations et Compétence)
+  function carteSituation(s, filtreCompetence) {
+    var codes = (s.competences || []).filter(function (x) { return !filtreCompetence || x.indexOf(filtreCompetence + ".") === 0; });
+    return '<article class="carte-situation">' +
+      '<div class="switch-haut"><span>' + numeroSituation(s) + "</span><span>" + echapper(s.lieu) + "</span></div>" +
+      '<div class="carte-corps"><h3><a href="' + lienSituation(s) + '">' + echapper(s.titre) + "</a></h3>" +
+      '<div class="texte">' + formater(s.resume) + "</div>" +
+      '<p class="etiquettes">' + etiquetteType(s) + codes.map(function (x) { return '<span class="etiquette">' + echapper(x) + "</span>"; }).join("") + "</p>" +
+      '<a class="bouton accent" href="' + lienSituation(s) + '">Lire la situation <span aria-hidden="true">→</span></a></div>' +
+      "</article>";
+  }
+
+  // ---- Situations (vue d'ensemble) ----
+  PAGES.situations = function () {
+    var groupes = [
+      { type: "pro",   titre: "En entreprise", intro: "Réalisées en alternance au support informatique du groupe Emera." },
+      { type: "ecole", titre: "À l'école",       intro: "Réalisées à l'école, en équipe." },
+      { type: "perso", titre: "Projets personnels",          intro: "Réalisés seul dans mon homelab, en dehors de l'entreprise." }
+    ];
+    var html = groupes.map(function (g) {
+      var sits = situationsPubliees().filter(function (s) { return s.type === g.type; });
+      if (!sits.length) return "";
+      return '<section class="section">' +
+        '<div class="section-tete"><h2>' + g.titre + '</h2><p class="intro-groupe">' + g.intro + "</p></div>" +
+        '<div class="grille-cartes">' + sits.map(function (s) { return carteSituation(s); }).join("") + "</div>" +
+        "</section>";
+    }).join("");
+    return (
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Épreuve E4</p><h1>Situations professionnelles</h1></div>' +
+        '<div class="texte"><p>Chaque situation est présentée comme un tutoriel : le contexte, le déroulé étape par étape avec les captures d\'écran, puis la conclusion et les compétences qu\'elle valide.</p></div>' +
+      "</section>" + html
+    );
+  };
+
+  // ---- Situation (page détail, « 6.b ») ----
+  PAGES.situation = function () {
+    var s = situationParId(new URLSearchParams(location.search).get("id"));
+    if (!s) {
+      return '<section class="planche section"><h1>Situation introuvable</h1><p>Cette situation n\'existe pas ou n\'est pas encore publiée.</p>' +
+        '<p><a class="bouton" href="situations.html">Retour aux situations</a></p></section>';
+    }
+    document.title = s.titre + " · " + SITE.profil.prenom + " " + SITE.profil.nom;
+    var dossier = "images/situations/";
+    var type = TYPES[s.type] || { long: s.type };
+    var ctx = s.contexte || {};
+
+    var avertissementPerso = s.type === "perso"
+      ? '<p class="note-perso"><b>Projet personnel</b> réalisé dans mon homelab, en dehors de l\'entreprise.</p>'
+      : "";
+
+    var outils = (s.outils || []).length
+      ? '<p class="etiquettes"><span class="libelle">Outils</span>' + s.outils.map(function (o) { return '<span class="etiquette">' + echapper(o) + "</span>"; }).join("") + "</p>"
+      : "";
+
+    var contexte = '<dl class="fiche">' +
+      "<dt>Mon rôle</dt><dd>" + formaterLigne(ctx.role) + "</dd>" +
+      "<dt>Objectif</dt><dd>" + formaterLigne(ctx.objectif) + "</dd>" +
+      "<dt>Pourquoi moi</dt><dd>" + formaterLigne(ctx.raison) + "</dd></dl>";
+
+    var etapes = s.etapes || [];
+    var sommaire = etapes.length
+      ? '<nav class="sommaire" aria-label="Étapes"><p class="libelle">Étapes</p><ol>' +
+        etapes.map(function (e, i) { return '<li><a href="#etape-' + (i + 1) + '">' + echapper(e.titre) + "</a></li>"; }).join("") + "</ol></nav>"
+      : "";
+
+    var deroule = etapes.map(function (e, i) {
+      return '<section class="etape" id="etape-' + (i + 1) + '">' +
+        '<h3><span class="etape-num">Étape ' + (i + 1) + "</span> " + echapper(e.titre) + "</h3>" +
+        '<div class="texte">' + formater(e.texte) + "</div>" +
+        (e.captures || []).map(function (c) { return capture(c, dossier); }).join("") +
+        "</section>";
+    }).join("");
+
+    var competences = competencesDeSituation(s).map(function (g) {
+      return '<li><a href="' + lienCompetence(g.competence) + '"><b>' + echapper(g.competence.code) + "</b> " + echapper(g.competence.titre) + "</a>" +
+        "<ul>" + g.savoirFaire.map(function (sf) { return "<li><span class=\"code\">" + echapper(sf.code) + "</span> " + echapper(sf.texte) + "</li>"; }).join("") + "</ul></li>";
+    }).join("");
+
+    return (
+      filAriane("Situations", "situations.html", numeroSituation(s)) +
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">' + echapper(numeroSituation(s)) + " · " + echapper(type.long) + " · " + echapper(s.lieu) + "</p>" +
+        "<h1>" + echapper(s.titre) + "</h1></div>" +
+        avertissementPerso + outils +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Contexte</h2></div>' + contexte + "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Déroulé</h2></div>' + sommaire + '<div class="etapes">' + deroule + "</div></section>" +
+      '<section class="section"><div class="section-tete"><h2>Conclusion</h2></div>' +
+        '<div class="texte">' + formater(s.conclusion) + "</div>" +
+        '<div class="competences-validees"><p class="libelle">Compétences validées par cette situation</p><ul>' + competences + "</ul></div>" +
+      "</section>"
     );
   };
 
