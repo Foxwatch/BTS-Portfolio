@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 165" font-family="'IBM Plex Sans', Arial, sans-serif">
+  <title>Le parcours d'une demande, du collaborateur jusqu'à la réponse</title>
+  <defs><marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#e8772e"/></marker></defs>
+  <rect width="900" height="165" fill="#ffffff"/>
+  <g stroke="#1b3a5c" stroke-width="2" fill="#ffffff">
+    <rect x="15" y="60" width="150" height="80" rx="4"/><rect x="195" y="60" width="150" height="80" rx="4"/>
+    <rect x="555" y="60" width="150" height="80" rx="4"/><rect x="735" y="60" width="150" height="80" rx="4"/>
+  </g>
+  <rect x="375" y="60" width="150" height="80" rx="4" fill="#1b3a5c"/>
+  <g stroke="#e8772e" stroke-width="2.5" marker-end="url(#f)">
+    <path d="M165 100 L191 100"/><path d="M345 100 L371 100"/><path d="M525 100 L551 100"/><path d="M705 100 L731 100"/>
+  </g>
+  <g font-size="14" text-anchor="middle" fill="#1b3a5c">
+    <text x="90" y="95">Collaborateur</text><text x="90" y="115">en établissement</text>
+    <text x="270" y="95">Ticket</text><text x="270" y="115">Freshservice</text>
+    <text x="630" y="95">Intervention</text><text x="630" y="115">AD, M365, Intune…</text>
+    <text x="810" y="95">Réponse et</text><text x="810" y="115">compte rendu</text>
+  </g>
+  <text x="450" y="95" font-size="14" text-anchor="middle" font-weight="700" fill="#ffffff">Support N1</text>
+  <text x="450" y="115" font-size="14" text-anchor="middle" fill="#ffffff">(mon rôle)</text>
+  <g font-family="'IBM Plex Mono', monospace" font-size="11" fill="#4a6380" text-anchor="middle">
+    <text x="90" y="40">1. DEMANDE</text><text x="270" y="40">2. ENREGISTREMENT</text><text x="450" y="40">3. PRISE EN CHARGE</text>
+    <text x="630" y="40">4. TRAITEMENT</text><text x="810" y="40">5. CLÔTURE</text>
+  </g>
+</svg>

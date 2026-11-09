@@ -51,7 +51,10 @@ situations.html, situation.html, realisations.html, veille.html,
 veille-exemple.html, verification.html   ← modèles vides, ne pas y écrire de texte
 contenu/                ← TOUT le texte du site est ici
   liste.js              ← liste des fichiers de contenu chargés (ordre = affichage)
-  profil.js             ← identité, présentation, fiche (accueil, pied de page)
+  profil.js             ← identité, présentation, fiche, LinkedIn, CV
+  entreprise.js         ← page Entreprise (description, fiche, mission, schéma)
+  realisations.js       ← page Réalisations (message neutre tant que la liste est vide)
+  veille.js             ← définition, planning, outils, thèmes de veille
   competences.js        ← B1.1 à B1.6 + T (transverse), savoir-faire du référentiel
   situations/*.js       ← une situation par fichier : ajouterSituation({…})
   veille/*.js           ← un exemple de veille par fichier (étape 4)
@@ -60,7 +63,9 @@ assets/css/style.css    ← mise en page ; couleurs UNIQUEMENT dans :root
 assets/polices/         ← IBM Plex Sans / Condensed / Mono en local
 images/commun/          ← photo-adaim-chatti.jpg, logo-ufip.png, logo-emera.png
 images/situations/      ← captures des situations
-images/veille/          ← illustrations de la veille
+images/veille/          ← illustrations de la veille (schémas SVG dessinés pour le site)
+images/entreprise/      ← schéma de la page Entreprise
+modeles/                ← modèles à copier : situation.js, exemple-veille.js
 documents/              ← CV en PDF
 ```
 
@@ -77,8 +82,11 @@ documents/              ← CV en PDF
 - `statut: "publie"` = visible ; `statut: "brouillon"` = caché et ne compte pas
   comme preuve.
 - **Une compétence sans preuve publiée n'est pas affichée** (règle du prof).
-- `verification.html` (étape 6, à faire) doit lister : compétences sans preuve,
-  images introuvables, `[À COMPLÉTER]` restants, brouillons, fichiers cassés.
+- La veille technologique compte comme preuve des savoir-faire déclarés dans
+  `veille.js` (champ `competences`, actuellement B1.6.2).
+- `verification.html` (hors menu, `noindex`) liste : compétences sans preuve,
+  savoir-faire non couverts, images introuvables, `[À COMPLÉTER]` restants,
+  brouillons, fichiers cassés. **La consulter avant chaque mise en ligne.**
 
 ### Mise en forme dans les textes de contenu
 
@@ -129,9 +137,9 @@ compétence = switch dont chaque situation est un port branché.
 | 1 | Moteur, en-tête, menu responsive, accueil | ✅ fait |
 | 2 | Compétences + page compétence + tableau de couverture | ✅ fait |
 | 3 | Situations + page situation (tutoriel) | ✅ fait (sit. 1, 2, 6 rédigées ; captures à fournir) |
-| 4 | Veille technologique + page exemple | ⏳ |
-| 5 | Entreprise, CV, Réalisations | ⏳ |
-| 6 | verification.html, README.md | ⏳ |
+| 4 | Veille technologique + page exemple | ✅ fait (3 exemples publiés, Ollama en brouillon) |
+| 5 | Entreprise, CV, Réalisations | ✅ fait (CV image + PDF à fournir) |
+| 6 | verification.html, README.md, modèles | ✅ fait |
 | 7 | Mise en ligne GitHub Pages | ⏳ |
 
 ### Situations prévues (fichiers déjà créés dans `contenu/situations/`)

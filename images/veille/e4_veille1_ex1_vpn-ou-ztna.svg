@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'IBM Plex Sans', Arial, sans-serif">
+  <title>VPN SSL ou ZTNA : ce à quoi l'utilisateur a accès</title>
+  <rect width="900" height="420" fill="#ffffff"/>
+  <line x1="450" y1="20" x2="450" y2="400" stroke="#d9e0e8" stroke-width="2"/>
+
+  <!-- VPN SSL -->
+  <text x="20" y="40" font-size="22" font-weight="700" fill="#1b3a5c">VPN SSL</text>
+  <rect x="20" y="170" width="100" height="60" rx="4" fill="#ffffff" stroke="#1b3a5c" stroke-width="2"/>
+  <text x="70" y="196" font-size="13" text-anchor="middle" fill="#1b3a5c">Utilisateur</text>
+  <text x="70" y="214" font-size="13" text-anchor="middle" fill="#1b3a5c">à distance</text>
+  <rect x="120" y="188" width="80" height="24" fill="#fbe3d3" stroke="#e8772e" stroke-width="2"/>
+  <text x="160" y="180" font-size="12" text-anchor="middle" fill="#b4500f">tunnel</text>
+  <rect x="200" y="70" width="220" height="280" rx="4" fill="#eef1f4" stroke="#1b3a5c" stroke-width="2"/>
+  <text x="310" y="94" font-size="13" font-weight="700" text-anchor="middle" fill="#1b3a5c">Réseau de l'entreprise</text>
+  <g stroke="#e8772e" stroke-width="2.5" fill="none">
+    <path d="M200 200 L235 130"/><path d="M200 200 L235 190"/><path d="M200 200 L235 250"/><path d="M200 200 L235 310"/>
+  </g>
+  <g fill="#ffffff" stroke="#1b3a5c" stroke-width="2">
+    <rect x="235" y="110" width="160" height="40" rx="3"/><rect x="235" y="170" width="160" height="40" rx="3"/>
+    <rect x="235" y="230" width="160" height="40" rx="3"/><rect x="235" y="290" width="160" height="40" rx="3"/>
+  </g>
+  <g font-size="13" text-anchor="middle" fill="#1b3a5c">
+    <text x="315" y="135">Messagerie</text><text x="315" y="195">Partage de fichiers</text>
+    <text x="315" y="255">Application métier</text><text x="315" y="315">Administration</text>
+  </g>
+  <text x="220" y="390" font-size="14" text-anchor="middle" fill="#4a6380">Une fois connecté : accès à tout le réseau</text>
+
+  <!-- ZTNA -->
+  <text x="470" y="40" font-size="22" font-weight="700" fill="#1b3a5c">ZTNA</text>
+  <rect x="470" y="170" width="100" height="60" rx="4" fill="#ffffff" stroke="#1b3a5c" stroke-width="2"/>
+  <text x="520" y="196" font-size="13" text-anchor="middle" fill="#1b3a5c">Utilisateur</text>
+  <text x="520" y="214" font-size="13" text-anchor="middle" fill="#1b3a5c">à distance</text>
+  <path d="M570 200 L595 200" stroke="#1b3a5c" stroke-width="2.5"/>
+  <rect x="595" y="130" width="130" height="140" rx="4" fill="#1b3a5c"/>
+  <text x="660" y="156" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">Contrôle d'accès</text>
+  <g font-size="12" fill="#ffffff">
+    <text x="607" y="190">✓ identité</text><text x="607" y="214">✓ poste conforme</text><text x="607" y="238">✓ contexte</text>
+  </g>
+  <path d="M725 200 L755 200" stroke="#e8772e" stroke-width="2.5"/>
+  <g stroke="#9fb0c3" stroke-width="2" stroke-dasharray="5 5" fill="none">
+    <path d="M725 180 L755 130"/><path d="M725 220 L755 270"/>
+  </g>
+  <rect x="755" y="176" width="130" height="48" rx="3" fill="#ffffff" stroke="#e8772e" stroke-width="2.5"/>
+  <text x="820" y="196" font-size="13" text-anchor="middle" font-weight="700" fill="#b4500f">Application</text>
+  <text x="820" y="213" font-size="13" text-anchor="middle" font-weight="700" fill="#b4500f">autorisée</text>
+  <g fill="#eef1f4" stroke="#9fb0c3" stroke-width="2" stroke-dasharray="5 5">
+    <rect x="755" y="110" width="130" height="40" rx="3"/><rect x="755" y="250" width="130" height="40" rx="3"/>
+  </g>
+  <g font-size="13" text-anchor="middle" fill="#4a6380">
+    <text x="820" y="135">Autre application</text><text x="820" y="275">Autre application</text>
+  </g>
+  <g font-size="16" font-weight="700" fill="#4a6380" text-anchor="middle"><text x="742" y="150">✕</text><text x="742" y="262">✕</text></g>
+  <text x="675" y="390" font-size="14" text-anchor="middle" fill="#4a6380">Une seule application, vérifiée à chaque connexion</text>
+</svg>

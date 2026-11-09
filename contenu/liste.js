@@ -10,7 +10,9 @@
 window.LISTE_CONTENU = [
   // Informations générales
   "profil.js",
+  "entreprise.js",
   "competences.js",
+  "realisations.js",
 
   // Situations (dans l'ordre d'affichage)
   "situations/inventaire-ad.js",
@@ -21,7 +23,12 @@ window.LISTE_CONTENU = [
   "situations/adguard-home.js",
   "situations/fortiwifi.js",
   "situations/audit-visibilite.js",
-  "situations/lab-mode-projet.js"
+  "situations/lab-mode-projet.js",
 
-  // La veille technologique sera ajoutée ici à l'étape 4.
+  // Veille technologique : la page, puis les exemples (dans l'ordre d'affichage)
+  "veille.js",
+  "veille/ztna.js",
+  "veille/adguard-home.js",
+  "veille/dot-ou-doh.js",
+  "veille/ollama.js"
 ];

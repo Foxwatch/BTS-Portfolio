@@ -442,3 +442,63 @@ main > *, .section > * { min-width: 0; }
 .competences-validees a:hover { text-decoration: underline; text-decoration-color: var(--signal); }
 .competences-validees ul ul { margin: 4px 0 0; padding-left: 0; list-style: none; display: grid; gap: 2px; font-size: 0.9rem; }
 .competences-validees .code { font-family: var(--police-mono); font-size: 0.75rem; color: var(--encre-doux); margin-right: 6px; }
+
+/* ==========================================================================
+   VEILLE TECHNOLOGIQUE
+   ========================================================================== */
+.carte-situation h4 { font-family: var(--police-titre); font-weight: 600; font-size: 1.15rem; line-height: 1.2; margin: 0; }
+.carte-situation h4 a { text-decoration: none; }
+.carte-situation h4 a:hover { text-decoration: underline; text-decoration-color: var(--signal); }
+
+/* Verdict : adoptée / non retenue / en cours d'étude */
+.verdict { font-family: var(--police-mono); font-size: 0.7rem; line-height: 1.6; padding: 1px 7px; border-radius: 2px; border: 1.5px solid var(--encre); white-space: nowrap; }
+.verdict-oui { background: var(--signal-fonce); border-color: var(--signal-fonce); color: var(--blanc); }
+.verdict-non { background: var(--blanc); color: var(--encre); }
+.verdict-etude { background: var(--blanc); color: var(--signal-fonce); border-color: var(--signal-fonce); border-style: dashed; }
+
+/* Semaine type avec le créneau de veille */
+.semaine { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 2px solid var(--encre); border-radius: 4px; background: var(--blanc); max-width: 760px; }
+.jour { min-height: 110px; padding: 8px; border-right: 1px solid var(--encre-trait); display: grid; align-content: start; gap: 8px; }
+.jour:last-child { border-right: 0; }
+.jour .libelle { text-align: center; }
+.jour-actif { background: var(--papier); }
+.creneau { background: var(--signal-fonce); color: var(--blanc); border-radius: 3px; padding: 6px 8px; font-size: 0.8rem; line-height: 1.35; }
+.creneau b { display: block; font-family: var(--police-mono); font-weight: 500; }
+.creneau .a-completer { color: var(--signal-fonce); }
+
+.themes { display: grid; gap: 40px; }
+.theme { display: grid; gap: 14px; padding-left: 18px; border-left: 4px solid var(--signal); }
+.blocs-veille { display: grid; gap: 28px; }
+.bloc-veille { display: grid; gap: 12px; }
+.conclusion-veille { display: grid; gap: 10px; justify-items: start; background: var(--blanc); border: 2px solid var(--encre); border-radius: 4px; padding: 14px 18px; max-width: 760px; }
+
+/* ==========================================================================
+   ENTREPRISE, CV
+   ========================================================================== */
+.entreprise-tete { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+@media (max-width: 560px) { .entreprise-tete { grid-template-columns: minmax(0, 1fr); } }
+.logo-grand { height: 110px; min-width: 200px; }
+.logo-grand img { max-height: 80px; }
+.liste-missions { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: var(--largeur-texte); }
+.liste-missions li::marker { color: var(--signal-fonce); }
+.liste-missions .puce-lien { margin-left: 6px; }
+
+.cv-image { margin: 0; max-width: 820px; }
+.cv-image img { border: 2px solid var(--encre); border-radius: 4px; background: var(--blanc); box-shadow: 8px 8px 0 var(--encre-trait); }
+.cv-vide { display: grid; place-items: center; text-align: center; min-height: 400px; padding: 20px; background: var(--blanc); border: 2px dashed var(--signal); border-radius: 4px; color: var(--signal-fonce); }
+
+/* ==========================================================================
+   PAGE DE VÉRIFICATION
+   ========================================================================== */
+.checklist { list-style: none; margin: 0; padding: 0; display: grid; border: 2px solid var(--encre); border-radius: 4px; background: var(--blanc); max-width: 760px; }
+.checklist li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--encre-trait); }
+.checklist li:last-child { border-bottom: 0; }
+.etat { font-weight: 700; }
+.etat-ok .etat { color: var(--encre); }
+.etat-ko .etat, .etat-attente .etat { color: var(--signal-fonce); }
+.etat-ko { background: #fdf0e7; }
+.section > ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.tout-bon { color: var(--encre-doux); }
+.section > ul li, #images-manquantes li { overflow-wrap: anywhere; }
+.creneau .a-completer { background: var(--blanc); }
+.puce-lien { white-space: nowrap; }

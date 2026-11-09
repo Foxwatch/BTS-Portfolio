@@ -32,6 +32,8 @@
   window.ajouterSituation = function (donnees) { SITE.situations.push(donnees); };
   window.definirVeille = function (donnees) { SITE.veille = donnees; };
   window.ajouterExempleVeille = function (donnees) { SITE.exemplesVeille.push(donnees); };
+  window.definirEntreprise = function (donnees) { SITE.entreprise = donnees; };
+  window.definirRealisations = function (donnees) { SITE.realisations = donnees; };
 
   /* ------------------------------------------------------------------------
      2. LE MENU : une seule définition, utilisée par toutes les pages.
@@ -304,25 +306,40 @@
   var TYPES = {
     pro:   { court: "Pro",          long: "Situation professionnelle" },
     perso: { court: "Projet perso", long: "Projet personnel" },
-    ecole: { court: "Pédagogique",  long: "Situation pédagogique" }
+    ecole: { court: "Pédagogique",  long: "Situation pédagogique" },
+    veille: { court: "Veille",      long: "Veille technologique" }
   };
 
   function situationsPubliees() {
     return SITE.situations.filter(function (s) { return s.statut === "publie"; });
   }
 
-  function lienSituation(s) { return "situation.html?id=" + encodeURIComponent(s.id); }
-  function lienCompetence(c) { return "competence.html?id=" + encodeURIComponent(c.code); }
-
-  // Situations publiées qui valident ce savoir-faire précis (ex. "B1.1.1")
-  function preuvesSavoirFaire(code) {
-    return situationsPubliees().filter(function (s) { return (s.competences || []).indexOf(code) !== -1; });
+  /* Toutes les preuves possibles : les situations publiées, plus la veille
+     technologique (qui prouve les savoir-faire déclarés dans contenu/veille.js). */
+  function toutesLesPreuves() {
+    var preuves = situationsPubliees();
+    var v = SITE.veille;
+    if (v && (v.competences || []).length) {
+      preuves = preuves.concat([{
+        id: "veille", type: "veille", lieu: "Veille", lien: "veille.html",
+        titre: "Veille technologique", resume: v.resume || "", competences: v.competences
+      }]);
+    }
+    return preuves;
   }
 
-  // Situations publiées qui valident au moins un savoir-faire de la compétence
+  function lienSituation(s) { return s.lien || "situation.html?id=" + encodeURIComponent(s.id); }
+  function lienCompetence(c) { return "competence.html?id=" + encodeURIComponent(c.code); }
+
+  // Preuves qui valident ce savoir-faire précis (ex. "B1.1.1")
+  function preuvesSavoirFaire(code) {
+    return toutesLesPreuves().filter(function (s) { return (s.competences || []).indexOf(code) !== -1; });
+  }
+
+  // Preuves qui valident au moins un savoir-faire de la compétence
   function preuvesCompetence(c) {
     var codes = c.savoirFaire.map(function (sf) { return sf.code; });
-    return situationsPubliees().filter(function (s) {
+    return toutesLesPreuves().filter(function (s) {
       return (s.competences || []).some(function (code) { return codes.indexOf(code) !== -1; });
     });
   }
@@ -337,7 +354,7 @@
     return '<span class="etiquette etiquette-' + echapper(s.type) + '">' + echapper(t.court) + "</span>";
   }
 
-  function numeroSituation(s) { return "SIT-" + String(s.numero).padStart(2, "0"); }
+  function numeroSituation(s) { return s.type === "veille" ? "VEILLE" : "SIT-" + String(s.numero).padStart(2, "0"); }
 
   // Fil d'Ariane des pages détail
   function filAriane(parent, lien, actuel) {
@@ -362,7 +379,7 @@
 
   // Tableau de synthèse : savoir-faire (lignes) × situations (colonnes)
   function tableauCouverture(competences) {
-    var sits = situationsPubliees();
+    var sits = toutesLesPreuves();
     var entete = "<tr><th scope=\"col\">Savoir-faire</th>" + sits.map(function (s) {
       return '<th scope="col"><a href="' + lienSituation(s) + '" title="' + echapper(s.titre) + '">' + numeroSituation(s) + "</a></th>";
     }).join("") + "</tr>";
@@ -477,7 +494,7 @@
       '<div class="carte-corps"><h3><a href="' + lienSituation(s) + '">' + echapper(s.titre) + "</a></h3>" +
       '<div class="texte">' + formater(s.resume) + "</div>" +
       '<p class="etiquettes">' + etiquetteType(s) + codes.map(function (x) { return '<span class="etiquette">' + echapper(x) + "</span>"; }).join("") + "</p>" +
-      '<a class="bouton accent" href="' + lienSituation(s) + '">Lire la situation <span aria-hidden="true">→</span></a></div>' +
+      '<a class="bouton accent" href="' + lienSituation(s) + '">' + (s.type === "veille" ? "Voir la veille technologique" : "Lire la situation") + ' <span aria-hidden="true">→</span></a></div>' +
       "</article>";
   }
 
@@ -563,6 +580,279 @@
       "</section>"
     );
   };
+
+  /* ======================================================================
+     VEILLE TECHNOLOGIQUE
+     Un thème = un besoin ; un exemple = une solution trouvée pour y répondre.
+     ====================================================================== */
+  var VERDICTS = {
+    "adoptee":     { texte: "Solution adoptée", classe: "verdict-oui" },
+    "non-retenue": { texte: "Non retenue",      classe: "verdict-non" },
+    "en-etude":    { texte: "En cours d'étude", classe: "verdict-etude" }
+  };
+
+  function exemplesPublies() {
+    return SITE.exemplesVeille.filter(function (e) { return e.statut === "publie"; });
+  }
+  function lienExemple(e) { return "veille-exemple.html?id=" + encodeURIComponent(e.id); }
+  function badgeVerdict(e) {
+    var v = VERDICTS[e.verdict] || { texte: "[À COMPLÉTER : verdict]", classe: "verdict-etude" };
+    return '<span class="verdict ' + v.classe + '">' + echapper(v.texte) + "</span>";
+  }
+  function themeDe(e) {
+    return ((SITE.veille && SITE.veille.themes) || []).filter(function (t) { return t.id === e.theme; })[0] || { titre: e.theme, numero: "?" };
+  }
+
+  // Semaine type : le créneau de veille est mis en évidence
+  function semaineVeille(planning) {
+    var jours = ["lundi", "mardi", "mercredi", "jeudi", "vendredi"];
+    return '<div class="semaine" role="img" aria-label="Créneau de veille : ' + echapper(planning.jour + " à " + planning.heure) + '">' +
+      jours.map(function (j) {
+        var actif = j === planning.jour;
+        return '<div class="jour' + (actif ? " jour-actif" : "") + '"><span class="libelle">' + j.slice(0, 3) + ".</span>" +
+          (actif ? '<span class="creneau"><b>' + echapper(planning.heure) + "</b> Veille technologique" + (planning.duree ? "<br>" + formaterLigne(planning.duree) : "") + "</span>" : "") +
+          "</div>";
+      }).join("") + "</div>";
+  }
+
+  PAGES.veille = function () {
+    var v = SITE.veille;
+    if (!v) return pageEnConstruction("veille");
+    var outils = (v.outils || []).map(function (o) {
+      return "<dt>" + echapper(o.nom) + "</dt><dd>" + formaterLigne(o.usage) + "</dd>";
+    }).join("");
+
+    var themes = (v.themes || []).map(function (t) {
+      var exemples = exemplesPublies().filter(function (e) { return e.theme === t.id; });
+      if (!exemples.length) return "";
+      var cartes = exemples.map(function (e) {
+        return '<article class="carte-situation">' +
+          '<div class="switch-haut"><span>THÈME ' + t.numero + " · EX. " + e.numero + "</span>" + badgeVerdict(e) + "</div>" +
+          '<div class="carte-corps"><h4><a href="' + lienExemple(e) + '">' + echapper(e.titre) + "</a></h4>" +
+          '<div class="texte">' + formater(e.resume) + "</div>" +
+          '<a class="bouton accent" href="' + lienExemple(e) + '">Voir l\'exemple <span aria-hidden="true">→</span></a></div></article>';
+      }).join("");
+      return '<section class="theme">' +
+        '<div class="section-tete"><p class="libelle">Thème ' + t.numero + (t.cadre ? " · " + echapper(t.cadre) : "") + "</p><h3>" + echapper(t.titre) + "</h3></div>" +
+        '<div class="texte">' + formater(t.besoin) + "</div>" +
+        '<div class="grille-cartes">' + cartes + "</div></section>";
+    }).join("");
+
+    return (
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Développement professionnel · B1.6</p><h1>Veille technologique</h1></div>' +
+        '<div class="texte">' + formater(v.definition) + "</div>" +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Planning</h2></div>' +
+        semaineVeille(v.planning || {}) +
+        '<div class="texte">' + formater(v.methode) + "</div>" +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Mes outils de veille</h2></div><dl class="fiche">' + outils + "</dl></section>" +
+      '<section class="section"><div class="section-tete"><h2>Thèmes et exemples</h2></div>' +
+        '<div class="texte"><p>Chaque thème part d\'un besoin. Chaque exemple est une solution trouvée pendant ma veille pour y répondre, avec ma conclusion : adoptée ou non, et pourquoi.</p></div>' +
+        '<div class="themes">' + themes + "</div></section>"
+    );
+  };
+
+  PAGES["veille-exemple"] = function () {
+    var id = new URLSearchParams(location.search).get("id");
+    var e = exemplesPublies().filter(function (x) { return x.id === id; })[0];
+    if (!e) {
+      return '<section class="planche section"><h1>Exemple introuvable</h1><p>Cet exemple n\'existe pas ou n\'est pas encore publié.</p>' +
+        '<p><a class="bouton" href="veille.html">Retour à la veille technologique</a></p></section>';
+    }
+    document.title = e.titre + " · Veille technologique · " + SITE.profil.prenom + " " + SITE.profil.nom;
+    var t = themeDe(e);
+    var deroule = (e.deroule || []).map(function (bloc) {
+      return '<section class="bloc-veille"><h3>' + echapper(bloc.titre) + "</h3>" +
+        '<div class="texte">' + formater(bloc.texte) + "</div>" +
+        (bloc.illustrations || []).map(function (c) { return capture(c, "images/veille/"); }).join("") + "</section>";
+    }).join("");
+    var lie = e.situationLiee ? situationParId(e.situationLiee) : null;
+    var lienSit = lie ? '<p><a class="bouton" href="' + lienSituation(lie) + '">Voir la mise en place : ' + echapper(lie.titre) + ' <span aria-hidden="true">→</span></a></p>' : "";
+
+    return (
+      filAriane("Veille technologique", "veille.html", "Thème " + t.numero + " · Exemple " + e.numero) +
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Thème ' + t.numero + " · " + echapper(t.titre) + "</p><h1>" + echapper(e.titre) + "</h1></div>" +
+        '<p class="etiquettes">' + badgeVerdict(e) + "</p>" +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Contexte</h2></div><div class="texte">' + formater(e.contexte) + "</div></section>" +
+      '<section class="section"><div class="section-tete"><h2>Déroulé</h2></div><div class="blocs-veille">' + deroule + "</div></section>" +
+      '<section class="section"><div class="section-tete"><h2>Conclusion</h2></div>' +
+        '<div class="conclusion-veille">' + badgeVerdict(e) + '<div class="texte">' + formater(e.conclusion) + "</div></div>" + lienSit +
+      "</section>"
+    );
+  };
+
+  /* ======================================================================
+     ENTREPRISE, CV, RÉALISATIONS
+     ====================================================================== */
+  PAGES.entreprise = function () {
+    var en = SITE.entreprise;
+    if (!en) return pageEnConstruction("entreprise");
+    var p = SITE.profil;
+    var outils = (en.outils || []).map(function (o) { return '<span class="etiquette">' + echapper(o) + "</span>"; }).join("");
+    var missions = (en.missions || []).map(function (m) {
+      var sit = m.situation ? situationParId(m.situation) : null;
+      return "<li><b>" + echapper(m.titre) + "</b> " + formaterLigne(m.texte) +
+        (sit ? ' <a class="puce-lien" href="' + lienSituation(sit) + '">' + numeroSituation(sit) + "</a>" : "") + "</li>";
+    }).join("");
+    return (
+      '<section class="section entreprise-tete">' +
+        '<div class="section-tete"><p class="libelle">Entreprise d\'accueil</p><h1>' + echapper(en.nom) + "</h1></div>" +
+        '<div class="logo-cadre logo-grand">' + image(p.entreprise.logo, "Logo " + en.nom, "[LOGO À FOURNIR]", "logo-vide") + "</div>" +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Présentation de l\'entreprise</h2></div>' +
+        '<div class="texte">' + formater(en.description) + "</div>" +
+        '<dl class="fiche">' + (en.fiche || []).map(function (l) { return "<dt>" + echapper(l.libelle) + "</dt><dd>" + formaterLigne(l.valeur) + "</dd>"; }).join("") + "</dl>" +
+      "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Ma mission</h2></div>' +
+        '<div class="texte">' + formater(en.mission) + "</div>" +
+        (en.schema ? capture(en.schema, "images/entreprise/") : "") +
+        '<div class="section-tete"><h3>Ce que je fais au quotidien</h3></div>' +
+        '<ul class="liste-missions">' + missions + "</ul>" +
+        '<p class="etiquettes"><span class="libelle">Outils</span>' + outils + "</p>" +
+      "</section>"
+    );
+  };
+
+  PAGES.cv = function () {
+    var cv = SITE.profil.cv || {};
+    return (
+      '<section class="section">' +
+        '<div class="section-tete"><p class="libelle">Parcours</p><h1>Curriculum vitæ</h1></div>' +
+        '<p><a class="bouton accent" href="' + echapper(cv.pdf) + '" download>Télécharger le CV (PDF) <span aria-hidden="true">↓</span></a></p>' +
+        '<figure class="cv-image">' + image(cv.image, "CV d'" + SITE.profil.prenom + " " + SITE.profil.nom, "[CV À FOURNIR : " + cv.image + " et " + cv.pdf + "]", "cv-vide") + "</figure>" +
+      "</section>"
+    );
+  };
+
+  PAGES.realisations = function () {
+    var r = SITE.realisations || { message: "", liste: [] };
+    var liste = (r.liste || []).filter(function (x) { return x.statut === "publie"; });
+    var contenu = liste.length
+      ? '<div class="grille-cartes">' + liste.map(function (x) {
+          return '<article class="carte-situation"><div class="carte-corps"><h3>' + echapper(x.titre) + '</h3><div class="texte">' + formater(x.description) + "</div></div></article>";
+        }).join("") + "</div>"
+      : '<div class="planche texte">' + formater(r.message) + "</div>";
+    return '<section class="section"><div class="section-tete"><p class="libelle">Épreuve E4</p><h1>Réalisations professionnelles</h1></div>' + contenu + "</section>";
+  };
+
+  /* ======================================================================
+     VÉRIFICATION (page hors menu) : tout ce qui manque avant l'épreuve
+     ====================================================================== */
+
+  // Cherche les « [À COMPLÉTER » dans n'importe quel texte d'un objet
+  function chercherACompleter(objet, chemin, resultats) {
+    if (typeof objet === "string") {
+      var m = objet.match(/\[À COMPLÉTER[^\]]*\]/g);
+      if (m) m.forEach(function (x) { resultats.push({ ou: chemin, quoi: x }); });
+    } else if (objet && typeof objet === "object") {
+      Object.keys(objet).forEach(function (k) { chercherACompleter(objet[k], chemin, resultats); });
+    }
+    return resultats;
+  }
+
+  // Liste de toutes les images attendues par le contenu publié
+  function imagesAttendues() {
+    var liste = [];
+    var p = SITE.profil;
+    [p.photo, p.ecole.logo, p.entreprise.logo, p.cv && p.cv.image].forEach(function (src) { if (src) liste.push({ src: src, ou: "profil.js" }); });
+    situationsPubliees().forEach(function (s) {
+      (s.etapes || []).forEach(function (e) { (e.captures || []).forEach(function (c) { liste.push({ src: "images/situations/" + c.fichier, ou: numeroSituation(s) }); }); });
+    });
+    exemplesPublies().forEach(function (e) {
+      (e.deroule || []).forEach(function (b) { (b.illustrations || []).forEach(function (c) { liste.push({ src: "images/veille/" + c.fichier, ou: "Veille : " + e.titre }); }); });
+    });
+    if (SITE.entreprise && SITE.entreprise.schema) liste.push({ src: "images/entreprise/" + SITE.entreprise.schema.fichier, ou: "entreprise.js" });
+    return liste;
+  }
+
+  function ligneEtat(ok, texte) {
+    return '<li class="' + (ok ? "etat-ok" : "etat-ko") + '"><span class="etat" aria-hidden="true">' + (ok ? "✔" : "✘") + "</span><span>" + texte + "</span></li>";
+  }
+
+  PAGES.verification = function () {
+    var sansPreuve = SITE.competences.filter(function (c) { return preuvesCompetence(c).length === 0; });
+    var sfNonCouverts = [];
+    SITE.competences.forEach(function (c) {
+      if (preuvesCompetence(c).length === 0) return;
+      c.savoirFaire.forEach(function (sf) { if (!preuvesSavoirFaire(sf.code).length) sfNonCouverts.push(sf); });
+    });
+    var brouillons = SITE.situations.filter(function (s) { return s.statut !== "publie"; })
+      .map(function (s) { return numeroSituation(s) + " · " + s.titre; })
+      .concat(SITE.exemplesVeille.filter(function (e) { return e.statut !== "publie"; }).map(function (e) { return "Veille · " + e.titre; }));
+
+    var aCompleter = [];
+    chercherACompleter(SITE.profil, "profil.js", aCompleter);
+    chercherACompleter(SITE.entreprise, "entreprise.js", aCompleter);
+    chercherACompleter(SITE.veille, "veille.js", aCompleter);
+    situationsPubliees().forEach(function (s) { chercherACompleter(s, numeroSituation(s) + " " + s.titre, aCompleter); });
+    exemplesPublies().forEach(function (e) { chercherACompleter(e, "Veille : " + e.titre, aCompleter); });
+
+    // Situations publiées sans aucune capture : la consigne donne 0
+    var sansCapture = situationsPubliees().filter(function (s) {
+      return !(s.etapes || []).some(function (e) { return (e.captures || []).length; });
+    });
+
+    var images = imagesAttendues();
+
+    function liste(items, vide) {
+      return items.length ? "<ul>" + items.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" : '<p class="tout-bon">' + vide + "</p>";
+    }
+
+    var checklist = [
+      ligneEtat(!SITE.erreurs.length, "Tous les fichiers de contenu se chargent sans erreur"),
+      ligneEtat(!sansPreuve.length, "Toutes les compétences de la grille sont prouvées (" + (SITE.competences.length - sansPreuve.length) + "/" + SITE.competences.length + ")"),
+      ligneEtat(!sansCapture.length, "Chaque situation publiée contient des captures"),
+      ligneEtat(!aCompleter.length, "Aucun [À COMPLÉTER] restant (" + aCompleter.length + ")"),
+      '<li id="etat-images" class="etat-attente"><span class="etat" aria-hidden="true">…</span><span>Vérification des images en cours</span></li>',
+      ligneEtat(!!SITE.veille && exemplesPublies().length > 0, "La veille technologique a au moins un exemple publié"),
+      ligneEtat(!!(SITE.profil.cv && SITE.profil.cv.pdf), "Un CV en PDF est déclaré")
+    ].join("");
+
+    // Les images sont testées après l'affichage (voir verifierImages)
+    setTimeout(function () { verifierImages(images); }, 0);
+
+    return (
+      '<section class="section"><div class="section-tete"><p class="libelle">Page de contrôle · hors menu</p><h1>Vérification du portfolio</h1></div>' +
+        '<div class="texte"><p>Cette page liste automatiquement ce qui manque avant l\'épreuve. Elle n\'apparaît pas dans le menu.</p></div>' +
+        '<ul class="checklist">' + checklist + "</ul></section>" +
+      afficherErreurs() +
+      '<section class="section"><div class="section-tete"><h2>Compétences sans preuve (cachées sur le site)</h2></div>' +
+        liste(sansPreuve.map(function (c) { return "<b>" + echapper(c.code) + "</b> " + echapper(c.titre); }), "Toutes les compétences sont prouvées.") + "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Savoir-faire pas encore couverts</h2></div>' +
+        liste(sfNonCouverts.map(function (sf) { return "<b>" + echapper(sf.code) + "</b> " + echapper(sf.texte); }), "Tous les savoir-faire des compétences affichées sont couverts.") + "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Images introuvables</h2></div><div id="images-manquantes"><p>Vérification en cours…</p></div></section>' +
+      '<section class="section"><div class="section-tete"><h2>[À COMPLÉTER] restants</h2></div>' +
+        liste(aCompleter.map(function (x) { return "<b>" + echapper(x.ou) + "</b> : " + echapper(x.quoi); }), "Rien à compléter.") + "</section>" +
+      '<section class="section"><div class="section-tete"><h2>Brouillons (non publiés)</h2></div>' +
+        liste(brouillons.map(echapper), "Aucun brouillon.") + "</section>"
+    );
+  };
+
+  // Teste chaque image attendue et affiche celles qui n'existent pas
+  function verifierImages(images) {
+    var manquantes = [];
+    var restantes = images.length;
+    function fin() {
+      var zone = el("#images-manquantes");
+      var etat = el("#etat-images");
+      if (!zone || !etat) return;
+      zone.innerHTML = manquantes.length
+        ? "<p>" + manquantes.length + " image(s) sur " + images.length + " à fournir :</p><ul>" + manquantes.map(function (m) { return "<li><code>" + echapper(m.src) + "</code> (" + echapper(m.ou) + ")</li>"; }).join("") + "</ul>"
+        : '<p class="tout-bon">Toutes les images sont présentes.</p>';
+      etat.outerHTML = ligneEtat(!manquantes.length, "Toutes les images sont présentes (" + (images.length - manquantes.length) + "/" + images.length + ")");
+    }
+    if (!restantes) return fin();
+    images.forEach(function (im) {
+      var test = new Image();
+      test.onload = function () { if (--restantes === 0) fin(); };
+      test.onerror = function () { manquantes.push(im); if (--restantes === 0) fin(); };
+      test.src = im.src;
+    });
+  }
 
   // ---- Pages pas encore construites (remplacées au fil des étapes) ----
   function pageEnConstruction(id) {

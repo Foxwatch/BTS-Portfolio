@@ -29,6 +29,13 @@ definirProfil({
   // Laisser vide ("") pour ne pas afficher le lien
   linkedin: "",
 
+  // CV : l'image s'affiche sur la page CV, le PDF se télécharge.
+  // ⚠️ Version publique : sans adresse postale, sans téléphone, sans âge.
+  cv: {
+    image: "images/commun/cv-adaim-chatti.png",
+    pdf: "documents/cv-adaim-chatti.pdf"
+  },
+
   presentation: `
     Étudiant en BTS SIO option SISR à l'UFIP, je suis en alternance au support informatique du groupe Emera, qui gère des résidences services et des établissements médicalisés pour seniors. J'y assure le support de niveau 1 pour les collaborateurs du groupe, en France et en Belgique.
 
