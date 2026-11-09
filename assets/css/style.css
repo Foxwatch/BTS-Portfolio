@@ -1,0 +1,331 @@
+/* ==========================================================================
+   style.css : la mise en page du portfolio (direction « Plan réseau »)
+   --------------------------------------------------------------------------
+   Aucune couleur n'est écrite en dur ailleurs que dans le bloc :root
+   ci-dessous. Pour changer une couleur, on change UNIQUEMENT ici.
+
+   Palette (consigne du prof : 2 à 3 couleurs hors noir et blanc) :
+     - Bleu encre     #1B3A5C  → couleur principale (texte, cadres, menu)
+     - Orange signal  #E8772E  → couleur d'accent (ce qui attire l'œil)
+     - Fond papier    #EEF1F4  → fond quadrillé façon schéma technique
+   Les autres valeurs sont des nuances de ces trois couleurs.
+   ========================================================================== */
+
+/* ---------- Polices (fichiers locaux : le site marche même hors ligne) ---------- */
+@font-face { font-family: "Plex Sans"; src: url("../polices/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Plex Sans"; src: url("../polices/ibm-plex-sans-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Plex Sans"; src: url("../polices/ibm-plex-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Plex Condensed"; src: url("../polices/ibm-plex-sans-condensed-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Plex Condensed"; src: url("../polices/ibm-plex-sans-condensed-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("../polices/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("../polices/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+/* ---------- Variables : couleurs, polices, tailles ---------- */
+:root {
+  /* Couleurs */
+  --encre: #1b3a5c;         /* bleu encre : couleur principale */
+  --encre-doux: #4a6380;    /* bleu encre éclairci : textes secondaires */
+  --encre-moyen: #24486f;   /* bleu encre un peu plus clair : fonds des ports */
+  --encre-trait: #d9e0e8;   /* bleu encre très pâle : quadrillage, filets */
+  --signal: #e8772e;        /* orange signal : accent */
+  --signal-fonce: #b4500f;  /* orange foncé : texte orange lisible sur blanc */
+  --papier: #eef1f4;        /* fond quadrillé */
+  --blanc: #ffffff;
+
+  /* Polices */
+  --police-titre: "Plex Condensed", "Arial Narrow", system-ui, sans-serif;
+  --police-texte: "Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --police-mono: "Plex Mono", ui-monospace, "Consolas", monospace;
+
+  /* Mise en page */
+  --largeur-max: 1120px;
+  --largeur-texte: 68ch;
+  --gouttiere: 16px;
+  color-scheme: light;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--police-texte);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--encre);
+  /* Fond quadrillé façon papier millimétré de schéma réseau */
+  background-color: var(--papier);
+  background-image:
+    linear-gradient(var(--encre-trait) 1px, transparent 1px),
+    linear-gradient(90deg, var(--encre-trait) 1px, transparent 1px);
+  background-size: 24px 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--encre); text-decoration-color: var(--signal); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+a:hover { color: var(--signal-fonce); }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+
+h1, h2, h3 { font-family: var(--police-titre); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.75rem); font-weight: 700; }
+h3 { font-size: 1.2rem; font-weight: 600; }
+p { margin: 0; }
+code { font-family: var(--police-mono); font-size: 0.9em; background: var(--papier); padding: 1px 5px; border-radius: 3px; }
+
+/* Petit libellé technique en majuscules (ex. « COMPÉTENCES · BLOC 1 ») */
+.libelle {
+  font-family: var(--police-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-doux);
+}
+
+/* Conteneur centré, avec marges latérales (téléphones à encoche compris) */
+.conteneur {
+  width: 100%;
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding-left: max(var(--gouttiere), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gouttiere), env(safe-area-inset-right, 0px));
+}
+
+main { flex: 1; padding-block: 40px 64px; display: grid; gap: 48px; align-content: start; }
+
+/* ==========================================================================
+   EN-TÊTE ET MENU (identiques sur toutes les pages, construits par site.js)
+   ========================================================================== */
+.entete {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--encre);
+  color: var(--blanc);
+}
+/* Bande au-dessus de l'en-tête sur les téléphones à encoche */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--encre); }
+
+.entete-interieur {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+}
+
+.marque {
+  font-family: var(--police-mono);
+  font-size: 0.95rem;
+  color: var(--blanc);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.marque b { color: var(--signal); font-weight: 500; }
+.marque span { color: #9fb3c9; }
+.marque:hover { color: var(--blanc); }
+
+.menu ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 4px; }
+.menu a {
+  display: block;
+  padding: 6px 10px;
+  color: var(--blanc);
+  text-decoration: none;
+  font-size: 0.92rem;
+  opacity: 0.85;
+  border-bottom: 2px solid transparent;
+}
+.menu a:hover { opacity: 1; color: var(--blanc); border-bottom-color: #9fb3c9; }
+.menu a[aria-current="page"] { opacity: 1; border-bottom-color: var(--signal); }
+
+/* Bouton ☰ : caché sur ordinateur, visible sur téléphone */
+.bouton-menu {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--blanc);
+  border: 1.5px solid #9fb3c9;
+  border-radius: 3px;
+  padding: 6px 12px;
+  font-family: var(--police-mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.bouton-menu .barres { width: 16px; height: 2px; background: currentColor; position: relative; display: block; }
+.bouton-menu .barres::before, .bouton-menu .barres::after { content: ""; position: absolute; left: 0; width: 16px; height: 2px; background: currentColor; }
+.bouton-menu .barres::before { top: -5px; }
+.bouton-menu .barres::after { top: 5px; }
+
+@media (max-width: 920px) {
+  .bouton-menu { display: inline-flex; }
+  .menu { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--encre); border-top: 1px solid var(--encre-moyen); box-shadow: 0 12px 24px rgba(27, 58, 92, 0.25); }
+  .menu.ouvert { display: block; }
+  .menu ul { flex-direction: column; gap: 0; padding-left: max(var(--gouttiere), env(safe-area-inset-left, 0px)); padding-right: max(var(--gouttiere), env(safe-area-inset-right, 0px)); padding-block: 4px 12px; }
+  .menu a { padding: 12px 4px; font-size: 1rem; border-bottom: 1px solid var(--encre-moyen); opacity: 1; }
+  .menu a[aria-current="page"] { border-bottom-color: var(--encre-moyen); border-left: 3px solid var(--signal); padding-left: 12px; }
+}
+
+/* ==========================================================================
+   PIED DE PAGE
+   ========================================================================== */
+.pied { background: var(--blanc); border-top: 2px solid var(--encre); padding-block: 20px; font-size: 0.85rem; color: var(--encre-doux); }
+.pied-interieur { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+.pied a { color: var(--encre); }
+
+/* ==========================================================================
+   COMPOSANTS RÉUTILISÉS PARTOUT
+   ========================================================================== */
+
+/* Section : un titre H2 + son contenu */
+.section { display: grid; gap: 20px; }
+.section-tete { display: grid; gap: 6px; }
+
+/* Planche : bloc blanc encadré, pour les textes longs (lisibles sur le quadrillage) */
+.planche { background: var(--blanc); border: 2px solid var(--encre); border-radius: 4px; padding: clamp(18px, 3vw, 32px); }
+
+/* Texte courant mis en forme depuis les fichiers de contenu */
+.texte { display: grid; gap: 12px; max-width: var(--largeur-texte); }
+.texte ul, .texte ol { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.texte li::marker { color: var(--signal-fonce); }
+
+/* Marqueur [À COMPLÉTER] : bien visible pour ne rien oublier */
+.a-completer {
+  font-family: var(--police-mono);
+  font-size: 0.85em;
+  color: var(--signal-fonce);
+  background: #fdf0e7;
+  border: 1.5px dashed var(--signal);
+  padding: 0 6px;
+  border-radius: 3px;
+}
+
+/* Bouton */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--encre);
+  color: var(--blanc);
+  font-family: var(--police-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: 3px;
+  border: 2px solid var(--encre);
+}
+.bouton:hover { background: var(--blanc); color: var(--encre); }
+.bouton.accent { background: var(--signal-fonce); border-color: var(--signal-fonce); }
+.bouton.accent:hover { background: var(--blanc); color: var(--signal-fonce); }
+
+/* Message d'erreur de chargement (fichier de contenu cassé) */
+.alerte { background: #fdf0e7; border: 2px solid var(--signal); border-radius: 4px; padding: 16px; display: grid; gap: 6px; }
+.alerte code { background: var(--blanc); }
+
+/* ==========================================================================
+   PAGE ACCUEIL
+   ========================================================================== */
+.accueil-hero {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 48px);
+  align-items: start;
+}
+@media (max-width: 640px) { .accueil-hero { grid-template-columns: minmax(0, 1fr); } }
+
+/* Photo : cadre avec repères d'angle façon plan technique */
+.photo { margin: 0; position: relative; width: 200px; max-width: 100%; }
+.photo img, .photo .photo-vide {
+  width: 200px; max-width: 100%; aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid var(--encre);
+  border-radius: 4px;
+  background: var(--blanc);
+}
+.photo .photo-vide { display: grid; place-items: center; text-align: center; padding: 12px; }
+.photo::before, .photo::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--signal); pointer-events: none; }
+.photo::before { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
+.photo::after { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
+
+.accueil-identite { display: grid; gap: 14px; min-width: 0; }
+.accueil-role { font-family: var(--police-mono); font-size: 0.95rem; color: var(--encre-doux); }
+
+/* Fiche d'identité, présentée comme la fiche d'un équipement */
+.fiche { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); border: 2px solid var(--encre); border-radius: 4px; background: var(--blanc); max-width: 640px; }
+.fiche dt, .fiche dd { margin: 0; padding: 8px 12px; border-bottom: 1px solid var(--encre-trait); }
+.fiche dt { font-family: var(--police-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--encre-doux); padding-top: 10px; border-right: 1px solid var(--encre-trait); }
+.fiche dt:last-of-type, .fiche dd:last-of-type { border-bottom: 0; }
+@media (max-width: 480px) {
+  .fiche { grid-template-columns: minmax(0, 1fr); }
+  .fiche dt { border-right: 0; border-bottom: 0; padding-bottom: 0; }
+}
+
+/* Logos de l'école et de l'entreprise */
+.logos { display: flex; flex-wrap: wrap; gap: 12px; }
+.logo { margin: 0; display: grid; gap: 4px; }
+.logo-cadre { height: 72px; min-width: 140px; padding: 10px 16px; background: var(--blanc); border: 1.5px dashed var(--encre-doux); border-radius: 3px; display: grid; place-items: center; }
+.logo-cadre img { max-height: 50px; width: auto; }
+
+/* Baie de brassage : accès rapide aux pages principales.
+   Chaque page est un « port » ; la LED s'allume au survol. */
+.baie {
+  position: relative;
+  background: var(--encre);
+  border-radius: 4px;
+  padding: 16px 44px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+/* Oreilles de fixation de la baie, avec leurs vis */
+.baie::before, .baie::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; width: 28px;
+  background:
+    radial-gradient(circle at 50% 18px, var(--papier) 0 4px, transparent 5px),
+    radial-gradient(circle at 50% calc(100% - 18px), var(--papier) 0 4px, transparent 5px),
+    var(--encre-moyen);
+}
+.baie::before { left: 0; border-radius: 4px 0 0 4px; }
+.baie::after { right: 0; border-radius: 0 4px 4px 0; }
+@media (max-width: 520px) {
+  .baie { padding: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .baie::before, .baie::after { display: none; }
+}
+
+.port {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 12px;
+  background: var(--encre-moyen);
+  border: 1px solid #2f5580;
+  border-radius: 3px;
+  color: var(--blanc);
+  text-decoration: none;
+  min-width: 0;
+}
+.port:hover, .port:focus-visible { color: var(--blanc); border-color: var(--signal); }
+.port-haut { display: flex; justify-content: space-between; align-items: center; }
+.port-num { font-family: var(--police-mono); font-size: 0.7rem; color: #9fb3c9; }
+/* La prise RJ45 dessinée en CSS */
+.prise { width: 34px; height: 26px; background: #0f2236; clip-path: polygon(0 0, 100% 0, 100% 75%, 75% 75%, 75% 100%, 25% 100%, 25% 75%, 0 75%); }
+.led { width: 8px; height: 8px; border-radius: 50%; background: #5d7a99; transition: background 0.15s; }
+.port:hover .led, .port:focus-visible .led { background: var(--signal); box-shadow: 0 0 6px var(--signal); }
+.port-titre { font-family: var(--police-titre); font-weight: 600; font-size: 1.1rem; line-height: 1.2; }
+.port-desc { font-size: 0.82rem; color: #c9d5e2; line-height: 1.4; }
+@media (prefers-reduced-motion: reduce) { .led { transition: none; } }
+
+/* Page pas encore construite */
+.en-construction { display: grid; gap: 12px; }
+
+/* Bloc de code (commandes, extraits de script) */
+.texte pre { margin: 0; background: var(--encre); color: var(--blanc); padding: 14px 16px; border-radius: 4px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+.texte pre code { background: none; padding: 0; color: inherit; }
