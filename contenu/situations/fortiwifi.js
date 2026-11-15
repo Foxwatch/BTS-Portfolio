@@ -10,11 +10,11 @@ ajouterSituation({
   // Savoir-faire validés (codes de contenu/competences.js)
   competences: ["B1.1.3", "B1.5.2"],
 
-  outils: ["FortiWiFi 60D (FortiOS 5.4)", "Proxmox", "AdGuard Home", "Nginx", "VPN"],
+  outils: ["FortiWiFi 60D (FortiOS 5.4)", "Proxmox", "AdGuard Home", "Nginx", "WireGuard"],
 
   // Une ou deux phrases, affichées sur les cartes
   resume: `
-    Découpage de mon réseau en VLAN, DNS AdGuard distribué par DHCP, politiques de pare-feu au plus juste et accès distant par VPN avec des droits différents pour les administrateurs et les utilisateurs.
+    Découpage de mon réseau en VLAN, DNS AdGuard distribué à tous, politiques de pare-feu au plus juste, publication de deux services par reverse proxy et accès distant par VPN WireGuard avec des droits selon le profil.
   `,
 
   contexte: {
@@ -34,7 +34,7 @@ ajouterSituation({
         - **MEDIA** : les services multimédias (Jellyfin, Seerr…) ;
         - **Proxy** : le reverse proxy Nginx ;
         - **VM**, **Machines** et **TEST** : mes machines virtuelles, mes postes et mes essais ;
-        - **VPN** : le serveur d'accès à distance.
+        - **VPN** : le serveur WireGuard d'accès à distance.
       `,
       captures: [
         { fichier: "e4_sit7_etape1_interfaces-vlan.png", legende: "Les VLAN créés sur le FortiWiFi", masquer: "rien d'obligatoire" }
@@ -76,7 +76,7 @@ ajouterSituation({
       texte: `
         Chaque flux autorisé a sa politique, nommée **SOURCE_TO_DESTINATION** pour rester lisible (par exemple MEDIA_TO_DNS ou VM_TO_WAN). Tout ce qui n'est pas autorisé est bloqué.
 
-        - Vers le VLAN DNS, j'autorise **seulement le service DNS**, et seulement vers l'objet Adguard.
+        - Vers le VLAN DNS, j'autorise **seulement le service DNS**, et seulement vers l'objet Adguard. Seul le profil administrateur du VPN a tous les services, pour ouvrir l'interface web d'AdGuard.
         - Le **NAT** n'est activé que sur les politiques qui sortent vers Internet (wan1).
         - Le reverse proxy **Nginx** n'a le droit de joindre que les services qu'il dessert (par exemple Jellyfin et Seerr).
       `,
@@ -87,15 +87,16 @@ ajouterSituation({
     {
       titre: "Accéder aux services à distance, avec des droits selon le profil",
       texte: `
-        Une **IP virtuelle (VIP)** redirige les ports UDP 6000 et 6001 reçus sur wan1 vers mon serveur VPN. Une fois connecté, chaque utilisateur n'a accès qu'à ce que son profil autorise :
+        Deux types d'accès depuis Internet, chacun par une **IP virtuelle (VIP)** sur wan1 :
+
+        1. **Jellyfin et Seerr** sont publiés par le **reverse proxy Nginx** : les VIP redirigent les ports 80 et 443 vers Nginx, qui transmet les requêtes à ces deux services seulement (politique Nginx_TO_MEDIA). Aucun autre service n'est exposé.
+        2. **Tout le reste passe par le VPN WireGuard** : une VIP redirige les ports UDP 6000 et 6001 vers le serveur VPN. Une fois connecté, chaque utilisateur n'a accès qu'à ce que son profil autorise :
 
         - **VPN_ADMIN** : accès aux VLAN Proxy, MEDIA, VM et TEST, pour administrer ;
         - **VPN_USER** : accès **uniquement** à Jellyfin et Seerr, au DNS et à Internet.
-
-        Deux autres VIP redirigent les ports 80 et 443 vers le reverse proxy Nginx.
       `,
       captures: [
-        { fichier: "e4_sit7_etape5_vip.png", legende: "Les IP virtuelles : VPN et reverse proxy Nginx", masquer: "adresse IP publique" }
+        { fichier: "e4_sit7_etape5_vip.png", legende: "Les IP virtuelles : VPN WireGuard et reverse proxy Nginx", masquer: "adresse IP publique" }
       ]
     },
     {
@@ -103,26 +104,28 @@ ajouterSituation({
       texte: `
         Au début, le VLAN du serveur DNS n'avait **aucun accès à Internet**. Les appareils obtenaient bien leur adresse IP, mais aucune résolution de nom ne fonctionnait : AdGuard Home ne pouvait pas joindre ses serveurs **upstream**.
 
-        J'ai donc ajouté une politique qui autorise le serveur DNS à sortir vers Internet, puis vérifié la configuration de ses serveurs upstream. La résolution a alors fonctionné sur tous les VLAN.
+        J'ai donc ajouté la politique **DNS_TO_WAN**, qui autorise le serveur AdGuard à sortir vers Internet (avec NAT), puis vérifié la configuration de ses serveurs upstream. La résolution a alors fonctionné sur tous les VLAN.
       `,
       captures: [
-        { fichier: "e4_sit7_etape6_policy-dns-internet.png", legende: "La politique qui autorise le serveur DNS à joindre Internet", masquer: "adresse IP publique" }
+        { fichier: "e4_sit7_etape6_policies-dns.png", legende: "Les politiques liées au DNS : DNS_TO_WAN (ligne 2) et les accès de chaque VLAN, limités au service DNS", masquer: "rien d'obligatoire" }
       ]
     },
     {
       titre: "Tester",
       texte: `
-        - Sur un poste, \`ipconfig /all\` montre que le DNS reçu par DHCP est bien AdGuard Home, et \`nslookup\` que la réponse vient de lui.
-        - Le journal du trafic du FortiWiFi montre les flux autorisés et refusés.
+        Depuis mon PC connecté par le VPN WireGuard :
+
+        - \`ipconfig /all\` montre l'adresse reçue dans le tunnel (10.10.40.2) et le serveur DNS **10.0.30.253**, c'est-à-dire AdGuard Home ;
+        - \`nslookup google.com\` confirme que c'est bien **adguard.local** qui répond.
       `,
       captures: [
-        { fichier: "e4_sit7_etape7_nslookup.png", legende: "Le DNS reçu par DHCP et la résolution par AdGuard Home", masquer: "rien d'obligatoire (adresses privées)" },
-        { fichier: "e4_sit7_etape7_journal-trafic.png", legende: "Le journal du trafic : flux autorisés et refusés", masquer: "adresse IP publique" }
+        { fichier: "e4_sit7_etape7_ipconfig-vpn.png", legende: "Le tunnel WireGuard : adresse et DNS AdGuard", masquer: "rien d'obligatoire (adresses privées)" },
+        { fichier: "e4_sit7_etape7_nslookup.png", legende: "La résolution de noms passe par AdGuard Home", masquer: "rien d'obligatoire (adresses privées)" }
       ]
     }
   ],
 
   conclusion: `
-    Objectif atteint : le réseau est découpé en VLAN, chaque flux est autorisé explicitement et l'accès à distance passe par un VPN dont les droits dépendent du profil. Deux limites à corriger : le DNS filtrant n'est pas **forcé** (un appareil peut en utiliser un autre ; il faudrait bloquer le port 53 vers tout autre serveur), et **FortiOS 5.4 n'est plus maintenu** par Fortinet.
+    Objectif atteint : le réseau est découpé en VLAN, chaque flux est autorisé explicitement et seuls deux services sont publiés, et le reste n'est accessible que par un VPN dont les droits dépendent du profil. Deux limites à corriger : le DNS filtrant n'est pas **forcé** (un appareil peut en utiliser un autre ; il faudrait bloquer le port 53 vers tout autre serveur), et **FortiOS 5.4 n'est plus maintenu** par Fortinet.
   `
 });
