@@ -63,7 +63,6 @@ ajouterSituation({
         Pour les postes suspects, je vérifie dans **Microsoft Intune** la date de dernière connexion et l'état de l'appareil, avant de prendre une décision.
       `,
       captures: [
-        { fichier: "e4_sit1_etape3_intune-derniere-connexion.png", legende: "La date de dernière connexion d'un poste dans Intune", masquer: "noms des appareils, utilisateurs, numéros de série" }
       ]
     },
     {
@@ -72,7 +71,6 @@ ajouterSituation({
         Dans la console ADUC, je désactive les comptes ordinateurs identifiés comme obsolètes. Je les désactive au lieu de les supprimer, ce qui permet de revenir en arrière en cas d'erreur.
       `,
       captures: [
-        { fichier: "e4_sit1_etape4_desactivation.png", legende: "Désactivation d'un compte ordinateur obsolète", masquer: "noms des PC, arborescence de l'AD" }
       ]
     },
     {
@@ -81,7 +79,6 @@ ajouterSituation({
         Je complète à la main le champ **Description** de chaque PC pour indiquer à qui il appartient. Le support retrouve ainsi le poste d'un utilisateur en quelques secondes.
       `,
       captures: [
-        { fichier: "e4_sit1_etape5_descriptions-postes.png", legende: "Les descriptions mises à jour dans l'AD", masquer: "noms des PC, établissements, fonctions, numéros de ticket" }
       ]
     }
   ],
