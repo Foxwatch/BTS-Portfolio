@@ -148,7 +148,7 @@ compétence = switch dont chaque situation est un port branché.
 |---|---|---|---|---|
 | 1 | inventaire-ad | pro | publie (captures de TP affichées comme reconstitution) | B1.1.1 |
 | 2 | arrivee-depart | pro | publie | B1.2.1, B1.2.2, B1.2.3, B1.1.3 |
-| 3 | etiquetage-tablettes | pro | brouillon (rédigée ; photo + message Teams à fournir, accord du tuteur) | B1.1.1 |
+| 3 | etiquetage-tablettes | pro | publie (photo + message Teams masqués ; accord du tuteur à confirmer) | B1.1.1 |
 | 4 | deploiement-postes | pro | brouillon | B1.5.2, B1.5.3 |
 | 5 | documentation-n1 | pro | brouillon | B1.5.3 |
 | 6 | adguard-home | perso | publie | B1.5.1, B1.5.2 |
