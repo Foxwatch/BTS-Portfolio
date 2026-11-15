@@ -155,7 +155,7 @@ compétence = switch dont chaque situation est un port branché.
 | 7 | fortiwifi | perso | publie (rédigée ; 1 capture sur 12) | B1.1.3, B1.5.2 |
 | 8 | audit-visibilite | pro | brouillon (à réaliser) | B1.3.2 |
 | 9 | lab-mode-projet | ecole | brouillon (à réaliser) | B1.4.1-3, T.1 |
-| 10 | incident-stockage | pro | brouillon (rédigée ; captures de reconstitution à fournir) | B1.2.1, B1.2.2 |
+| 10 | incident-stockage | pro | publie (4 captures de reconstitution sur le PC perso d'Adaim) | B1.2.1, B1.2.2 |
 
 **15/11/2026 (veille de l'examen blanc)** : captures masquées des situations 2 (13) et 6 (11) ajoutées, CV public (adresse, âge et téléphone masqués) ajouté en image et en PDF. Manquent encore : `e4_sit6_etape2_assistant-ports.png` et `e4_sit6_etape11_journal-requetes.png`.
 

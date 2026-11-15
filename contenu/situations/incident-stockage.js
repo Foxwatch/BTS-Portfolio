@@ -2,7 +2,7 @@
 ajouterSituation({
   id: "incident-stockage",
   numero: 10,  // définitif : sert au nom des captures (e4_sit10_…)
-  statut: "brouillon",  // passer à "publie" quand les captures sont déposées
+  statut: "publie",  // "publie" = visible sur le site ; "brouillon" = caché
   type: "pro",  // "pro" | "perso" | "ecole"
   lieu: "Emera",
   titre: "Incident : disque saturé sur le poste d'un utilisateur",
@@ -38,7 +38,9 @@ ajouterSituation({
     {
       titre: "Trouver ce qui occupe la place",
       texte: `
-        J'installe **WinDirStat**, qui analyse le disque et affiche la taille de chaque dossier. Le résultat est clair : un dossier d'un **logiciel de sécurité Dell** occupe une très grande partie du disque.
+        J'installe **WinDirStat**, qui analyse le disque et affiche la taille de chaque dossier, du plus gros au plus petit, avec une carte de couleurs. Sur le poste de l'utilisateur, le résultat était clair : un dossier d'un **logiciel de sécurité Dell** occupait une très grande partie du disque.
+
+        Sur la reconstitution, on voit aussi le fichier **hiberfil.sys** (fichier d'hibernation), qui pèse à lui seul plus de 12 Go.
       `,
       captures: [
         { fichier: "e4_sit10_etape2_windirstat.png", legende: "Reconstitution : WinDirStat montre les dossiers les plus volumineux", masquer: "nom d'utilisateur dans les chemins" }
@@ -55,14 +57,14 @@ ajouterSituation({
     {
       titre: "Désinstaller le logiciel et désactiver l'hibernation",
       texte: `
-        Je désinstalle le logiciel depuis les paramètres de Windows. Je désactive aussi l'**hibernation**, dont le fichier \`hiberfil.sys\` occupe plusieurs gigaoctets :
+        Je désinstalle le logiciel depuis le **Panneau de configuration** (Programmes et fonctionnalités). Je désactive aussi l'**hibernation**, dont le fichier \`hiberfil.sys\` occupe plusieurs gigaoctets, avec une invite de commandes lancée **en administrateur** :
 
         ~~~
         powercfg /h off
         ~~~
       `,
       captures: [
-        { fichier: "e4_sit10_etape4_desinstallation.png", legende: "Reconstitution : la désinstallation d'un logiciel (exemple)", masquer: "nom d'utilisateur" },
+        { fichier: "e4_sit10_etape4_desinstallation.png", legende: "Reconstitution : la désinstallation d'un logiciel (ici VLC, à titre d'exemple)", masquer: "nom d'utilisateur" },
         { fichier: "e4_sit10_etape4_powercfg.png", legende: "Reconstitution : la désactivation de l'hibernation", masquer: "nom d'utilisateur dans l'invite" }
       ]
     },
@@ -72,7 +74,6 @@ ajouterSituation({
         Je contrôle l'espace libre : environ **100 Go** ont été récupérés. J'informe l'utilisateur et je clôture le ticket.
       `,
       captures: [
-        { fichier: "e4_sit10_etape5_espace-apres.png", legende: "Reconstitution : l'espace libre après l'intervention", masquer: "nom du PC, nom d'utilisateur" }
       ]
     }
   ],
