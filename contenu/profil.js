@@ -36,6 +36,10 @@ definirProfil({
     pdf: "documents/cv-adaim-chatti.pdf"
   },
 
+  // Tableau de synthèse E4 (annexe 6-1) : bouton de téléchargement sur la page Situations.
+  // Laisser vide ("") pour cacher le bouton.
+  synthese: "documents/tableau-synthese-e4.xlsx",
+
   presentation: `
     Étudiant en BTS SIO option SISR à l'UFIP, je suis en alternance au support informatique du groupe Emera, qui gère des résidences services et des établissements médicalisés pour seniors. J'y assure le support de niveau 1 pour les collaborateurs du groupe, en France et en Belgique.
 

@@ -517,6 +517,8 @@
       '<section class="section">' +
         '<div class="section-tete"><p class="libelle">Épreuve E4</p><h1>Situations professionnelles</h1></div>' +
         '<div class="texte"><p>Chaque situation est présentée comme un tutoriel : le contexte, le déroulé étape par étape avec les captures d\'écran, puis la conclusion et les compétences qu\'elle valide.</p></div>' +
+        // Bouton du tableau de synthèse E4 (fichier Excel), s'il est déclaré dans profil.js
+        (SITE.profil.synthese ? '<p><a class="bouton accent" href="' + echapper(SITE.profil.synthese) + '" download>Télécharger le tableau de synthèse E4 (Excel) <span aria-hidden="true">↓</span></a></p>' : "") +
       "</section>" + html
     );
   };
