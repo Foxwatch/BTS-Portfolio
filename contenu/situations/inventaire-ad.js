@@ -39,7 +39,7 @@ ajouterSituation({
         - le tableau fourni par les RH, qui indique qui occupe quel poste ;
         - la date de dernière connexion de chaque poste (Last Logon), relevée dans l'AD ou dans Intune.
 
-        [À COMPLÉTER : comment la liste des postes a été extraite (export depuis ADUC, script « LastLogon » ?)]
+        La liste des postes et de leur date de dernière connexion est extraite de l'AD **avec un script**, ce qui évite de relever chaque poste à la main.
       `,
       captures: [
         { fichier: "e4_sit1_lab_connexion-rdp.png", legende: "Reconstitution en TP : connexion au contrôleur de domaine d'un lab", masquer: "rien (environnement de test)" },
@@ -51,7 +51,7 @@ ajouterSituation({
       texte: `
         Je compare les deux listes pour repérer les écarts : postes sans utilisateur connu, utilisateurs partis, postes qui ne se sont plus connectés depuis longtemps.
 
-        [À COMPLÉTER : méthode de comparaison dans Excel (RECHERCHEV, filtre…) et durée à partir de laquelle un poste est considéré comme inactif]
+        J'utilise les **filtres d'Excel** pour isoler les postes qui ne se sont plus connectés depuis **plus de 4 mois**. Avant de conclure, j'**appelle l'établissement** concerné pour vérifier que le poste n'est vraiment plus utilisé.
       `,
       captures: [
         { fichier: "e4_sit1_lab_croisement-excel.png", legende: "Reconstitution en TP : un tableau RH (données fictives) comparé à l'annuaire", masquer: "rien (données fictives)" }
