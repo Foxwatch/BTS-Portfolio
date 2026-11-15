@@ -30,6 +30,9 @@ window.LISTE_CONTENU = [
   "veille.js",
   "veille/ztna.js",
   "veille/adguard-home.js",
-  "veille/dot-ou-doh.js"
+  "veille/dot-ou-doh.js",
+  "veille/guacamole.js",
+  "veille/teleport.js",
+  "veille/wallix-bastion.js"
   // "veille/ollama.js" : retiré le 15/11/2026 (sujet plus d'actualité)
 ];

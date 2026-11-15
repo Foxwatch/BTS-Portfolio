@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" font-family="'IBM Plex Sans', Arial, sans-serif">
+  <title>Comparatif de trois bastions : Apache Guacamole, Teleport et WALLIX Bastion</title>
+  <rect width="900" height="330" fill="#ffffff"/>
+  <!-- en-têtes -->
+  <rect x="0" y="0" width="900" height="50" fill="#1b3a5c"/>
+  <g font-size="15" font-weight="700" fill="#ffffff">
+    <text x="15" y="31">Critère</text><text x="215" y="31">Apache Guacamole</text><text x="445" y="31">Teleport</text><text x="675" y="31">WALLIX Bastion</text>
+  </g>
+  <g stroke="#d9e0e8" stroke-width="1.5">
+    <line x1="0" y1="105" x2="900" y2="105"/><line x1="0" y1="160" x2="900" y2="160"/>
+    <line x1="0" y1="215" x2="900" y2="215"/><line x1="0" y1="270" x2="900" y2="270"/>
+    <line x1="200" y1="50" x2="200" y2="330"/><line x1="430" y1="50" x2="430" y2="330"/><line x1="660" y1="50" x2="660" y2="330"/>
+  </g>
+  <g font-size="13" font-weight="700" fill="#1b3a5c">
+    <text x="15" y="83">Coût</text><text x="15" y="138">Accès</text><text x="15" y="193">Enregistrement</text>
+    <text x="15" y="248">Difficulté</text><text x="15" y="303">Pour qui ?</text>
+  </g>
+  <g font-size="13" fill="#1b3a5c">
+    <text x="215" y="76">Gratuit, open source</text><text x="215" y="94">(licence Apache)</text>
+    <text x="215" y="131">Dans le navigateur :</text><text x="215" y="149">RDP, SSH, VNC</text>
+    <text x="215" y="193">Oui, rejouable</text>
+    <text x="215" y="248">Simple</text>
+    <text x="215" y="303">Homelab, PME</text>
+
+    <text x="445" y="76">Gratuit pour particuliers</text><text x="445" y="94">et petites entreprises</text>
+    <text x="445" y="131">SSH, Kubernetes,</text><text x="445" y="149">bases de données…</text>
+    <text x="445" y="193">Oui, rejouable</text>
+    <text x="445" y="248">Plus technique</text>
+    <text x="445" y="303">Équipes techniques</text>
+
+    <text x="675" y="76">Payant (commercial)</text>
+    <text x="675" y="131">RDP, SSH et autres</text><text x="675" y="149">protocoles d'administration</text>
+    <text x="675" y="193">Oui, rejouable</text>
+    <text x="675" y="248">Produit clé en main</text>
+    <text x="675" y="285">Entreprises ; certifié</text><text x="675" y="303">par l'ANSSI (CSPN)</text>
+  </g>
+</svg>

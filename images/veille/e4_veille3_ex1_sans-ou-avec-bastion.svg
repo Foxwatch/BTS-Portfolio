@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="'IBM Plex Sans', Arial, sans-serif">
+  <title>Sans bastion ou avec bastion : comment l'administrateur accède aux serveurs</title>
+  <rect width="900" height="420" fill="#ffffff"/>
+  <line x1="450" y1="20" x2="450" y2="400" stroke="#d9e0e8" stroke-width="2"/>
+
+  <!-- Sans bastion -->
+  <text x="20" y="40" font-size="22" font-weight="700" fill="#1b3a5c">Sans bastion</text>
+  <rect x="20" y="180" width="110" height="60" rx="4" fill="#ffffff" stroke="#1b3a5c" stroke-width="2"/>
+  <text x="75" y="207" font-size="13" text-anchor="middle" fill="#1b3a5c">Administrateur</text>
+  <text x="75" y="225" font-size="12" text-anchor="middle" fill="#1b3a5c">(VPN)</text>
+  <g stroke="#e8772e" stroke-width="2.5" fill="none">
+    <path d="M130 210 L250 105"/><path d="M130 210 L250 175"/><path d="M130 210 L250 245"/><path d="M130 210 L250 315"/>
+  </g>
+  <g fill="#ffffff" stroke="#1b3a5c" stroke-width="2">
+    <rect x="250" y="85" width="170" height="40" rx="3"/><rect x="250" y="155" width="170" height="40" rx="3"/>
+    <rect x="250" y="225" width="170" height="40" rx="3"/><rect x="250" y="295" width="170" height="40" rx="3"/>
+  </g>
+  <g font-size="13" text-anchor="middle" fill="#1b3a5c">
+    <text x="335" y="110">Serveur Linux (SSH)</text><text x="335" y="180">Serveur Windows (RDP)</text>
+    <text x="335" y="250">Hyperviseur (web)</text><text x="335" y="320">Pare-feu (web)</text>
+  </g>
+  <text x="20" y="375" font-size="13" fill="#b4500f">Un accès direct par serveur : un mot de passe par serveur,</text>
+  <text x="20" y="393" font-size="13" fill="#b4500f">aucune trace centralisée de qui a fait quoi.</text>
+
+  <!-- Avec bastion -->
+  <text x="470" y="40" font-size="22" font-weight="700" fill="#1b3a5c">Avec bastion</text>
+  <rect x="470" y="180" width="100" height="60" rx="4" fill="#ffffff" stroke="#1b3a5c" stroke-width="2"/>
+  <text x="520" y="207" font-size="13" text-anchor="middle" fill="#1b3a5c">Administrateur</text>
+  <text x="520" y="225" font-size="12" text-anchor="middle" fill="#1b3a5c">(VPN)</text>
+  <path d="M570 210 L600 210" stroke="#e8772e" stroke-width="2.5"/>
+  <rect x="600" y="150" width="110" height="120" rx="4" fill="#fbe3d3" stroke="#e8772e" stroke-width="2"/>
+  <text x="655" y="175" font-size="14" font-weight="700" text-anchor="middle" fill="#b4500f">Bastion</text>
+  <g font-size="12" text-anchor="middle" fill="#1b3a5c">
+    <text x="655" y="200">1. qui es-tu ?</text><text x="655" y="220">2. as-tu le droit ?</text><text x="655" y="240">3. j'enregistre</text>
+  </g>
+  <g stroke="#1b3a5c" stroke-width="2" fill="none">
+    <path d="M710 210 L745 105"/><path d="M710 210 L745 175"/><path d="M710 210 L745 245"/><path d="M710 210 L745 315"/>
+  </g>
+  <g fill="#ffffff" stroke="#1b3a5c" stroke-width="2">
+    <rect x="745" y="85" width="135" height="40" rx="3"/><rect x="745" y="155" width="135" height="40" rx="3"/>
+    <rect x="745" y="225" width="135" height="40" rx="3"/><rect x="745" y="295" width="135" height="40" rx="3"/>
+  </g>
+  <g font-size="13" text-anchor="middle" fill="#1b3a5c">
+    <text x="812" y="110">Linux (SSH)</text><text x="812" y="180">Windows (RDP)</text>
+    <text x="812" y="250">Hyperviseur</text><text x="812" y="320">Pare-feu</text>
+  </g>
+  <text x="470" y="375" font-size="13" fill="#1b3a5c">Une seule porte d'entrée : on s'identifie une fois,</text>
+  <text x="470" y="393" font-size="13" fill="#1b3a5c">les droits et l'historique sont gérés au même endroit.</text>
+</svg>
