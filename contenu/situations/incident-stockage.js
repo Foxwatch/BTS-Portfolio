@@ -71,9 +71,12 @@ ajouterSituation({
     {
       titre: "Vérifier le résultat et clôturer",
       texte: `
-        Je contrôle l'espace libre : environ **100 Go** ont été récupérés. J'informe l'utilisateur et je clôture le ticket.
+        Je contrôle l'espace libre : sur le poste de l'utilisateur, environ **100 Go** ont été récupérés. J'informe l'utilisateur et je clôture le ticket.
+
+        Sur la reconstitution, la seule désactivation de l'hibernation fait passer l'espace libre de **259 Go à 272 Go**, soit environ 13 Go, la taille de \`hiberfil.sys\`.
       `,
       captures: [
+        { fichier: "e4_sit10_etape5_espace-apres.png", legende: "Reconstitution : 272 Go libres après la désactivation de l'hibernation (contre 259 Go avant)", masquer: "rien d'obligatoire" }
       ]
     }
   ],
