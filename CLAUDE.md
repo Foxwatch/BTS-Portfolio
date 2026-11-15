@@ -136,9 +136,9 @@ compétence = switch dont chaque situation est un port branché.
 |---|---|---|
 | 1 | Moteur, en-tête, menu responsive, accueil | ✅ fait |
 | 2 | Compétences + page compétence + tableau de couverture | ✅ fait |
-| 3 | Situations + page situation (tutoriel) | ✅ fait (sit. 1, 2, 6 rédigées ; captures à fournir) |
-| 4 | Veille technologique + page exemple | ✅ fait (3 exemples publiés, Ollama en brouillon) |
-| 5 | Entreprise, CV, Réalisations | ✅ fait (CV image + PDF à fournir) |
+| 3 | Situations + page situation (tutoriel) | ✅ fait (6 publiées : 1, 2, 3, 6, 7, 10) |
+| 4 | Veille technologique + page exemple | ✅ fait (2 thèmes × 3 exemples : bastion, DNS) |
+| 5 | Entreprise, CV, Réalisations | ✅ fait (CV public UFIPTECH en image + PDF) |
 | 6 | verification.html, README.md, modèles | ✅ fait |
 | 7 | Mise en ligne GitHub Pages | ⏳ |
 
@@ -152,10 +152,10 @@ compétence = switch dont chaque situation est un port branché.
 | 4 | deploiement-postes | pro | brouillon | B1.5.2, B1.5.3 |
 | 5 | documentation-n1 | pro | brouillon | B1.5.3 |
 | 6 | adguard-home | perso | publie | B1.5.1, B1.5.2 |
-| 7 | fortiwifi | perso | publie (rédigée ; 1 capture sur 12) | B1.1.3, B1.5.2 |
+| 7 | fortiwifi | perso | publie (9 captures) | B1.1.3, B1.5.2 |
 | 8 | audit-visibilite | pro | brouillon (à réaliser) | B1.3.2 |
 | 9 | lab-mode-projet | ecole | brouillon (à réaliser) | B1.4.1-3, T.1 |
-| 10 | incident-stockage | pro | publie (4 captures de reconstitution sur le PC perso d'Adaim) | B1.2.1, B1.2.2 |
+| 10 | incident-stockage | pro | publie (5 captures de reconstitution sur le PC perso d'Adaim) | B1.2.1, B1.2.2 |
 
 **15/11/2026 (veille de l'examen blanc)** : captures masquées des situations 2 (13) et 6 (11) ajoutées, CV public (adresse, âge et téléphone masqués) ajouté en image et en PDF. Manquent encore : `e4_sit6_etape2_assistant-ports.png` et `e4_sit6_etape11_journal-requetes.png`.
 
@@ -249,7 +249,7 @@ Google Alertes, Reddit r/sysadmin et r/cybersecurity, bulletins ANSSI / CERT-FR.
   (adopté), Pi-hole / NextDNS (non retenus, à justifier), DoT face à DoH.
 - Thème 3 IA locale (Ollama) : **retiré** le 15/11/2026 (plus d'actualité selon Adaim).
 - **15/11/2026 : thème ZTNA retiré à la demande d'Adaim. Thème 2 DNS (projet perso) remis, avec un 3ᵉ exemple Pi-hole (non retenu : pas de serveur DoT natif). Thème bastion : les 3 solutions en « en cours d'étude » (demande d'Adaim).**
-- Thème 1 « Centraliser et tracer les accès d'administration » (homelab, ajouté le 15/11/2026, rédigé avec l'aide de Claude à partir des docs officielles ; verdicts proposés, à valider par Adaim) : Apache Guacamole (en étude, à tester en premier), Teleport (non retenu : complexe, licence gratuite limitée aux structures < 100 salariés depuis la v16), WALLIX Bastion (non retenu pour le homelab : payant ; certifié CSPN par l'ANSSI). Schémas : `e4_veille1_ex1_sans-ou-avec-bastion.svg`, `e4_veille1_comparatif-bastions.svg`.
+- Thème 1 « Centraliser et tracer les accès d'administration » (homelab, ajouté le 15/11/2026, rédigé avec l'aide de Claude à partir des docs officielles ; les 3 en « en cours d'étude » à la demande d'Adaim) : Apache Guacamole (à tester en premier), Teleport (complexe, licence gratuite limitée aux structures < 100 salariés depuis la v16), WALLIX Bastion (payant ; certifié CSPN par l'ANSSI). Schémas : `e4_veille1_ex1_sans-ou-avec-bastion.svg`, `e4_veille1_comparatif-bastions.svg`.
 - regreSSHion : retiré (ce n'est pas une solution à un besoin).
 - Le README doit expliquer pas à pas la routine de veille et l'ajout d'un exemple.
 
@@ -257,6 +257,8 @@ Google Alertes, Reddit r/sysadmin et r/cybersecurity, bulletins ANSSI / CERT-FR.
 (France, Belgique… liste des pays à confirmer). Perspective : passage vers
 l'infrastructure prévu au 1er janvier (à confirmer, ne pas l'écrire tant que ce
 n'est pas acté). L'ancienne page était trop gonflée : rester factuel.
+
+Une fiche de révision (privée, hors dépôt) a été faite pour l'oral : https://claude.ai/artifact/VugjWfSYgZSQomC9Afi35N
 
 ## 9. Questions en attente
 
