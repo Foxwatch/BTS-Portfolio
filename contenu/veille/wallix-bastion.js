@@ -4,7 +4,7 @@ ajouterExempleVeille({
   theme: "bastion",        // id du thème dans contenu/veille.js
   numero: 3,               // numéro de l'exemple dans son thème
   statut: "publie",        // "publie" ou "brouillon"
-  verdict: "non-retenue",  // "adoptee" | "non-retenue" | "en-etude"
+  verdict: "en-etude",  // "adoptee" | "non-retenue" | "en-etude"
   titre: "WALLIX Bastion, la solution française certifiée",
   resume: `
     Un bastion commercial français, certifié par l'ANSSI, pensé pour les entreprises et les administrations.
@@ -40,6 +40,6 @@ ajouterExempleVeille({
     }
   ],
   conclusion: `
-    Non retenue pour mon homelab, à cause de son coût. En revanche, c'est la solution la plus adaptée à une **entreprise** qui doit prouver la sécurité de ses accès d'administration, grâce à sa certification ANSSI.
+    Solution en cours d'étude. Pour mon homelab, son coût est un frein ; en revanche, c'est la solution la plus adaptée à une **entreprise** qui doit prouver la sécurité de ses accès d'administration, grâce à sa certification ANSSI.
   `
 });

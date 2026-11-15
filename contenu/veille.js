@@ -50,6 +50,15 @@ definirVeille({
       besoin: `
         Dans mon homelab, quand je suis connecté au VPN avec le profil administrateur, j'accède directement à chaque serveur, chacun avec son propre mot de passe et son propre protocole (SSH, RDP, interfaces web). Rien ne garde de trace centralisée de qui s'est connecté où, ni de ce qui a été fait. Je cherche une **porte d'entrée unique** pour administrer mes serveurs : un **bastion**.
       `
+    },
+    {
+      id: "dns",
+      numero: 2,
+      cadre: "Homelab",
+      titre: "Filtrer et chiffrer mes requêtes DNS",
+      besoin: `
+        Projet personnel : chez moi, tous les appareils envoyaient leurs requêtes DNS en clair, et rien ne bloquait les publicités, les traceurs ou les domaines malveillants. Je cherchais une solution pour filtrer ces requêtes sur tout le réseau, puis pour les chiffrer.
+      `
     }
   ]
 });

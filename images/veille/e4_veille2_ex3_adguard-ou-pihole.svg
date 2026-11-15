@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" font-family="'IBM Plex Sans', Arial, sans-serif">
+  <title>AdGuard Home ou Pi-hole : comparaison pour mon besoin</title>
+  <rect width="900" height="280" fill="#ffffff"/>
+  <rect x="0" y="0" width="900" height="50" fill="#1b3a5c"/>
+  <g font-size="15" font-weight="700" fill="#ffffff">
+    <text x="15" y="31">Critère</text><text x="345" y="31">AdGuard Home</text><text x="635" y="31">Pi-hole</text>
+  </g>
+  <g stroke="#d9e0e8" stroke-width="1.5">
+    <line x1="0" y1="95" x2="900" y2="95"/><line x1="0" y1="140" x2="900" y2="140"/>
+    <line x1="0" y1="185" x2="900" y2="185"/><line x1="0" y1="230" x2="900" y2="230"/>
+    <line x1="330" y1="50" x2="330" y2="280"/><line x1="620" y1="50" x2="620" y2="280"/>
+  </g>
+  <g font-size="13" font-weight="700" fill="#1b3a5c">
+    <text x="15" y="78">Prix et licence</text><text x="15" y="123">Filtrage par listes de blocage</text>
+    <text x="15" y="168">Chiffrement vers Internet (DoH, DoT)</text><text x="15" y="213">Serveur DoT pour mon téléphone</text>
+    <text x="15" y="258">Communauté et documentation</text>
+  </g>
+  <g font-size="13" fill="#1b3a5c">
+    <text x="345" y="78">Gratuit, open source</text><text x="345" y="123">Oui</text>
+    <text x="345" y="168">Oui, intégré</text><text x="345" y="213" font-weight="700">Oui, intégré</text>
+    <text x="345" y="258">Bonne</text>
+    <text x="635" y="78">Gratuit, open source</text><text x="635" y="123">Oui</text>
+    <text x="635" y="168">Avec un outil en plus (Unbound…)</text><text x="635" y="213" font-weight="700" fill="#b4500f">Non, pas nativement</text>
+    <text x="635" y="258">Très grande</text>
+  </g>
+</svg>

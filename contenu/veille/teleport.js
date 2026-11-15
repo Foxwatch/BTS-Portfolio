@@ -4,7 +4,7 @@ ajouterExempleVeille({
   theme: "bastion",        // id du thème dans contenu/veille.js
   numero: 2,               // numéro de l'exemple dans son thème
   statut: "publie",        // "publie" ou "brouillon"
-  verdict: "non-retenue",  // "adoptee" | "non-retenue" | "en-etude"
+  verdict: "en-etude",  // "adoptee" | "non-retenue" | "en-etude"
   titre: "Teleport, un bastion moderne pour les équipes techniques",
   resume: `
     Un bastion qui remplace les mots de passe par des certificats temporaires et enregistre les sessions. Puissant, mais plus technique.
@@ -38,6 +38,6 @@ ajouterExempleVeille({
     }
   ],
   conclusion: `
-    Non retenue pour l'instant : elle est plus complexe que mon besoin, qui est surtout d'administrer quelques serveurs en SSH et en RDP. Je la garde en tête pour plus tard, car ses certificats temporaires sont une très bonne pratique de sécurité.
+    Solution en cours d'étude. Elle est plus complexe que mon besoin actuel, qui est surtout d'administrer quelques serveurs en SSH et en RDP, mais ses **certificats temporaires** sont une très bonne pratique de sécurité. Je la comparerai à Guacamole après l'avoir testé.
   `
 });

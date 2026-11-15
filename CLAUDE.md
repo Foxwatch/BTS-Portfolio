@@ -248,7 +248,7 @@ Google Alertes, Reddit r/sysadmin et r/cybersecurity, bulletins ANSSI / CERT-FR.
 - Thème 2 « Filtrer et chiffrer mes requêtes DNS » (homelab) : AdGuard Home
   (adopté), Pi-hole / NextDNS (non retenus, à justifier), DoT face à DoH.
 - Thème 3 IA locale (Ollama) : **retiré** le 15/11/2026 (plus d'actualité selon Adaim).
-- **15/11/2026 : les thèmes ZTNA et DNS sont retirés à la demande d'Adaim (veille jugée obsolète ; AdGuard reste une situation). Seul thème restant :**
+- **15/11/2026 : thème ZTNA retiré à la demande d'Adaim. Thème 2 DNS (projet perso) remis, avec un 3ᵉ exemple Pi-hole (non retenu : pas de serveur DoT natif). Thème bastion : les 3 solutions en « en cours d'étude » (demande d'Adaim).**
 - Thème 1 « Centraliser et tracer les accès d'administration » (homelab, ajouté le 15/11/2026, rédigé avec l'aide de Claude à partir des docs officielles ; verdicts proposés, à valider par Adaim) : Apache Guacamole (en étude, à tester en premier), Teleport (non retenu : complexe, licence gratuite limitée aux structures < 100 salariés depuis la v16), WALLIX Bastion (non retenu pour le homelab : payant ; certifié CSPN par l'ANSSI). Schémas : `e4_veille1_ex1_sans-ou-avec-bastion.svg`, `e4_veille1_comparatif-bastions.svg`.
 - regreSSHion : retiré (ce n'est pas une solution à un besoin).
 - Le README doit expliquer pas à pas la routine de veille et l'ajout d'un exemple.
