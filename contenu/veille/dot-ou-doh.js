@@ -16,7 +16,7 @@ ajouterExempleVeille({
   contexte: `
     Thème : filtrer et chiffrer les requêtes DNS de mon réseau. Une requête DNS classique circule **en clair** : n'importe qui sur le chemin peut voir les sites demandés, voire modifier la réponse pour rediriger vers un faux site (le **DNS hijacking**).
 
-    [À COMPLÉTER : comment j'ai découvert ces protocoles (sources)]
+    J'ai découvert ces protocoles en demandant à un assistant IA comment chiffrer mes requêtes DNS, puis je les ai mis en pratique dans AdGuard Home.
   `,
 
   deroule: [

@@ -17,7 +17,7 @@ ajouterExempleVeille({
   contexte: `
     Thème : filtrer et chiffrer les requêtes DNS de mon réseau.
 
-    [À COMPLÉTER : comment j'ai découvert AdGuard Home (article, Reddit, vidéo…)]
+    En cherchant comment filtrer les requêtes DNS de tout mon réseau, AdGuard Home est la première solution que j'ai trouvée.
   `,
 
   deroule: [
@@ -50,6 +50,6 @@ ajouterExempleVeille({
   conclusion: `
     Solution adoptée : je l'ai installée sur mon Raspberry Pi. Elle gère nativement le DNS over TLS, ce qui me permettait de chiffrer les requêtes de mon téléphone sans outil supplémentaire.
 
-    [À COMPLÉTER : autres raisons de ce choix, et solutions comparées s'il y en a eu]
+    Je ne l'ai pas comparée à d'autres solutions avant de l'installer. **Pi-hole**, l'alternative la plus connue, pourrait être testée pour comparer.
   `
 });

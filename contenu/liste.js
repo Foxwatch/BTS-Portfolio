@@ -24,11 +24,12 @@ window.LISTE_CONTENU = [
   "situations/fortiwifi.js",
   "situations/audit-visibilite.js",
   "situations/lab-mode-projet.js",
+  "situations/incident-stockage.js",
 
   // Veille technologique : la page, puis les exemples (dans l'ordre d'affichage)
   "veille.js",
   "veille/ztna.js",
   "veille/adguard-home.js",
-  "veille/dot-ou-doh.js",
-  "veille/ollama.js"
+  "veille/dot-ou-doh.js"
+  // "veille/ollama.js" : retiré le 15/11/2026 (sujet plus d'actualité)
 ];

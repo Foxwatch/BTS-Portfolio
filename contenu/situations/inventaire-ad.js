@@ -6,7 +6,7 @@
 ajouterSituation({
   id: "inventaire-ad",
   numero: 1,  // définitif : sert au nom des captures (e4_sit1_…)
-  statut: "brouillon",  // "publie" = visible sur le site ; "brouillon" = caché  (repassé en brouillon le 15/11 : aucune capture réelle pour l'instant)
+  statut: "publie",  // "publie" = visible sur le site ; "brouillon" = caché
   type: "pro",  // "pro" | "perso" | "ecole"
   lieu: "Emera",
   titre: "Fiabilisation de l'inventaire via Active Directory",
@@ -31,6 +31,8 @@ ajouterSituation({
     {
       titre: "Rassembler les données à comparer",
       texte: `
+        Les données de l'entreprise ne peuvent pas être montrées : les captures de cette situation sont une **reconstitution** réalisée en TP, sur un domaine de test avec des données fictives.
+
         Je réunis trois sources :
 
         - la liste des ordinateurs présents dans l'Active Directory ;
@@ -40,7 +42,8 @@ ajouterSituation({
         [À COMPLÉTER : comment la liste des postes a été extraite (export depuis ADUC, script « LastLogon » ?)]
       `,
       captures: [
-        { fichier: "e4_sit1_etape1_export-postes.png", legende: "L'extraction des postes et de leur dernière connexion", masquer: "noms des PC, arborescence de l'AD, noms des établissements, nom de domaine" }
+        { fichier: "e4_sit1_lab_connexion-rdp.png", legende: "Reconstitution en TP : connexion au contrôleur de domaine d'un lab", masquer: "rien (environnement de test)" },
+        { fichier: "e4_sit1_lab_console-aduc.png", legende: "Reconstitution en TP : la console ADUC du domaine de test", masquer: "rien (environnement de test)" }
       ]
     },
     {
@@ -51,7 +54,7 @@ ajouterSituation({
         [À COMPLÉTER : méthode de comparaison dans Excel (RECHERCHEV, filtre…) et durée à partir de laquelle un poste est considéré comme inactif]
       `,
       captures: [
-        { fichier: "e4_sit1_etape2_croisement-excel.png", legende: "Le croisement des données dans Excel", masquer: "noms et prénoms, matricules, noms des PC" }
+        { fichier: "e4_sit1_lab_croisement-excel.png", legende: "Reconstitution en TP : un tableau RH (données fictives) comparé à l'annuaire", masquer: "rien (données fictives)" }
       ]
     },
     {

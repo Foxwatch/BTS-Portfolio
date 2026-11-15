@@ -31,14 +31,15 @@ ajouterSituation({
     {
       titre: "Installer AdGuard Home sur le Raspberry Pi",
       texte: `
-        Je me connecte au Raspberry Pi en SSH depuis mon PC, puis j'installe AdGuard Home comme service, pour qu'il démarre automatiquement :
+        Je me connecte au Raspberry Pi en SSH depuis mon PC. Je télécharge l'archive d'AdGuard Home pour processeur ARM 64 bits avec \`curl\`, je la décompresse, puis j'installe AdGuard Home comme service, pour qu'il démarre automatiquement :
 
         ~~~
         ssh utilisateur@<adresse-ip-du-pi>
+        curl -L -O <lien de l'archive linux_arm64 sur le site d'AdGuard>
+        tar -xzf AdGuardHome_linux_arm64.tar.gz
+        cd AdGuardHome
         sudo ./AdGuardHome -s install
         ~~~
-
-        [À COMPLÉTER : comment le programme AdGuard Home a été téléchargé sur le Pi]
       `,
       captures: [
         { fichier: "e4_sit6_etape1_installation-ssh.png", legende: "Connexion SSH et installation du service", masquer: "rien d'obligatoire (adresses privées)" }
@@ -50,7 +51,6 @@ ajouterSituation({
         L'assistant de démarrage, ouvert dans le navigateur, permet de choisir les interfaces et les ports d'écoute : l'interface d'administration d'un côté, le serveur DNS de l'autre.
       `,
       captures: [
-        { fichier: "e4_sit6_etape2_assistant-ports.png", legende: "Choix des interfaces et des ports dans l'assistant", masquer: "rien d'obligatoire" }
       ]
     },
     {
@@ -137,12 +137,9 @@ ajouterSituation({
       titre: "Bonus : configurer un téléphone Android",
       texte: `
         Dans les paramètres réseau d'Android, option **DNS privé**, je saisis le nom d'hôte de mon serveur. Le téléphone envoie alors ses requêtes chiffrées à AdGuard Home, même en dehors de chez moi.
-
-        [À COMPLÉTER : capture du journal des requêtes montrant les requêtes du téléphone, pour prouver que le DNS over TLS fonctionne]
       `,
       captures: [
-        { fichier: "e4_sit6_etape11_android-dns-prive.png", legende: "Le DNS privé configuré sur Android", masquer: "rien d'obligatoire" },
-        { fichier: "e4_sit6_etape11_journal-requetes.png", legende: "Les requêtes du téléphone reçues par AdGuard Home", masquer: "noms des autres appareils, adresse IP publique" }
+        { fichier: "e4_sit6_etape11_android-dns-prive.png", legende: "Le DNS privé configuré sur Android", masquer: "rien d'obligatoire" }
       ]
     }
   ],

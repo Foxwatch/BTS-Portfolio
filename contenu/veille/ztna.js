@@ -14,7 +14,7 @@ ajouterExempleVeille({
   contexte: `
     Thème : remplacer le VPN SSL, dont la fin du support est annoncée par le constructeur du pare-feu.
 
-    [À COMPLÉTER : comment j'ai découvert le ZTNA (article, bulletin, documentation du constructeur…) et à quelle date]
+    J'ai découvert le ZTNA quand l'équipe informatique m'a associé au projet de remplacement du VPN SSL : j'ai alors étudié la solution pour comprendre ce qui allait changer.
   `,
 
   deroule: [
@@ -43,8 +43,6 @@ ajouterExempleVeille({
   ],
 
   conclusion: `
-    Solution adoptée : j'ai présenté le ZTNA comme remplacement du VPN SSL, et la DSI l'a retenue. Aucune autre solution n'a été proposée en parallèle.
-
-    [À COMPLÉTER : le ZTNA est-il déjà déployé, ou seulement prévu ?]
+    Solution adoptée : l'entreprise a retenu le ZTNA pour remplacer le VPN SSL, et le projet est en cours. J'y suis associé, ce qui me permet de suivre concrètement le passage d'un accès réseau global à un accès application par application.
   `
 });

@@ -15,7 +15,7 @@ definirVeille({
 
   // Phrase affichée sur la page de la compétence B1.6
   resume: `
-    Une veille organisée chaque semaine, tournée vers des solutions concrètes pour l'entreprise et pour mon homelab.
+    Une veille organisée, tournée vers des solutions concrètes pour l'entreprise et pour mon homelab.
   `,
 
   // Savoir-faire prouvés par la veille (codes de contenu/competences.js)
@@ -28,7 +28,10 @@ definirVeille({
   },
 
   methode: `
-    [À COMPLÉTER : comment se passe une séance, par exemple : lecture des flux et des alertes, tri des articles utiles, prise de notes, étude d'une solution]
+    1. Je parcours mes sources : flux Feedly, alertes Google, Reddit et bulletins du CERT-FR.
+    2. Je garde seulement ce qui répond à un de mes thèmes, c'est-à-dire à un besoin réel.
+    3. Pour chaque solution retenue, je note la source, ce qu'elle fait et ce qu'elle apporterait.
+    4. Quand c'est possible, je la teste dans mon homelab avant de décider si je l'adopte.
   `,
 
   outils: [
@@ -55,15 +58,6 @@ definirVeille({
       titre: "Filtrer et chiffrer mes requêtes DNS",
       besoin: `
         Chez moi, tous les appareils envoyaient leurs requêtes DNS en clair, et rien ne bloquait les publicités, les traceurs ou les domaines malveillants. Je cherchais une solution pour filtrer ces requêtes sur tout le réseau, puis pour les chiffrer.
-      `
-    },
-    {
-      id: "ia-locale",
-      numero: 3,
-      cadre: "Projet",
-      titre: "Utiliser l'IA sans faire sortir de données",
-      besoin: `
-        [À COMPLÉTER : le besoin (par exemple : profiter d'un assistant IA sans envoyer de données à un service extérieur)]
       `
     }
   ]

@@ -146,15 +146,16 @@ compétence = switch dont chaque situation est un port branché.
 
 | N° | id | Type | Statut | Savoir-faire proposés (à faire valider) |
 |---|---|---|---|---|
-| 1 | inventaire-ad | pro | brouillon (aucune capture réelle ; les captures de lab viennent d'un TP) | B1.1.1 |
+| 1 | inventaire-ad | pro | publie (captures de TP affichées comme reconstitution) | B1.1.1 |
 | 2 | arrivee-depart | pro | publie | B1.2.1, B1.2.2, B1.2.3, B1.1.3 |
-| 3 | etiquetage-tablettes | pro | brouillon (accord du tuteur) | B1.1.1 |
+| 3 | etiquetage-tablettes | pro | brouillon (rédigée ; photo + message Teams à fournir, accord du tuteur) | B1.1.1 |
 | 4 | deploiement-postes | pro | brouillon | B1.5.2, B1.5.3 |
 | 5 | documentation-n1 | pro | brouillon | B1.5.3 |
 | 6 | adguard-home | perso | publie | B1.5.1, B1.5.2 |
-| 7 | fortiwifi | perso | brouillon (captures) | B1.1.3, B1.5.1, B1.5.2 |
+| 7 | fortiwifi | perso | publie (rédigée ; 1 capture sur 12) | B1.1.3, B1.5.2 |
 | 8 | audit-visibilite | pro | brouillon (à réaliser) | B1.3.2 |
 | 9 | lab-mode-projet | ecole | brouillon (à réaliser) | B1.4.1-3, T.1 |
+| 10 | incident-stockage | pro | brouillon (rédigée ; captures de reconstitution à fournir) | B1.2.1, B1.2.2 |
 
 **15/11/2026 (veille de l'examen blanc)** : captures masquées des situations 2 (13) et 6 (11) ajoutées, CV public (adresse, âge et téléphone masqués) ajouté en image et en PDF. Manquent encore : `e4_sit6_etape2_assistant-ports.png` et `e4_sit6_etape11_journal-requetes.png`.
 
@@ -246,7 +247,7 @@ Google Alertes, Reddit r/sysadmin et r/cybersecurity, bulletins ANSSI / CERT-FR.
   sur l'entreprise).
 - Thème 2 « Filtrer et chiffrer mes requêtes DNS » (homelab) : AdGuard Home
   (adopté), Pi-hole / NextDNS (non retenus, à justifier), DoT face à DoH.
-- Thème 3 optionnel : IA locale (Ollama), « en cours d'étude ».
+- Thème 3 IA locale (Ollama) : **retiré** le 15/11/2026 (plus d'actualité selon Adaim).
 - regreSSHion : retiré (ce n'est pas une solution à un besoin).
 - Le README doit expliquer pas à pas la routine de veille et l'ajout d'un exemple.
 
@@ -258,7 +259,7 @@ n'est pas acté). L'ancienne page était trop gonflée : rester factuel.
 ## 9. Questions en attente
 
 1. Script « LastLogon » utilisé pour l'inventaire ?
-2. École : UFIP (dit par Adaim) ou EFITECH (écrit sur l'ancien CV) ?
+2. École : le CV affiche désormais « UFIPTECH » (demande d'Adaim). Le site dit « UFIP » : à harmoniser ?
 3. CV : Adaim le refait, ou on en refait un (sans adresse, téléphone ni âge,
    avec Emera, SISR, homelab) ?
 4. Publier le portfolio sur `portfolio.foxwarch.com` (le domaine racine sert au DoT) ?
