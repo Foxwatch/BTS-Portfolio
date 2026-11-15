@@ -25,7 +25,7 @@ ajouterExempleVeille({
         Le produit a obtenu la certification **CSPN** de l'**ANSSI**, l'agence française de cybersécurité : un laboratoire agréé a vérifié sa sécurité.
       `,
       illustrations: [
-        { fichier: "e4_veille3_ex1_sans-ou-avec-bastion.svg", legende: "Le principe du bastion : une seule porte d'entrée contrôlée" }
+        { fichier: "e4_veille1_ex1_sans-ou-avec-bastion.svg", legende: "Le principe du bastion : une seule porte d'entrée contrôlée" }
       ]
     },
     {
@@ -35,7 +35,7 @@ ajouterExempleVeille({
         - **Inconvénients** : **payante**, et dimensionnée pour des entreprises, pas pour un homelab.
       `,
       illustrations: [
-        { fichier: "e4_veille3_comparatif-bastions.svg", legende: "Les trois solutions étudiées, comparées" }
+        { fichier: "e4_veille1_comparatif-bastions.svg", legende: "Les trois solutions étudiées, comparées" }
       ]
     }
   ],

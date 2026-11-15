@@ -23,7 +23,7 @@ ajouterExempleVeille({
         Les sessions sont **enregistrées** et peuvent être rejouées.
       `,
       illustrations: [
-        { fichier: "e4_veille3_ex1_sans-ou-avec-bastion.svg", legende: "Le principe du bastion : une seule porte d'entrée contrôlée" }
+        { fichier: "e4_veille1_ex1_sans-ou-avec-bastion.svg", legende: "Le principe du bastion : une seule porte d'entrée contrôlée" }
       ]
     },
     {
@@ -33,7 +33,7 @@ ajouterExempleVeille({
         - **Inconvénients** : plus complexe à comprendre et à installer. Depuis la version 16, la version gratuite (Community Edition) est réservée aux particuliers et aux entreprises de **moins de 100 salariés** et de moins de 10 millions de dollars de chiffre d'affaires ; au-delà, il faut la version payante.
       `,
       illustrations: [
-        { fichier: "e4_veille3_comparatif-bastions.svg", legende: "Les trois solutions étudiées, comparées" }
+        { fichier: "e4_veille1_comparatif-bastions.svg", legende: "Les trois solutions étudiées, comparées" }
       ]
     }
   ],

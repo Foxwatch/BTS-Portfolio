@@ -43,26 +43,8 @@ definirVeille({
 
   themes: [
     {
-      id: "acces-distant",
-      numero: 1,
-      cadre: "Entreprise",
-      titre: "Remplacer le VPN SSL pour l'accès à distance",
-      besoin: `
-        Le VPN SSL permet aux collaborateurs de se connecter à distance au réseau de l'entreprise. Visé par de nombreuses failles, il est abandonné par certains constructeurs de pare-feu. Il faut donc anticiper une solution de remplacement, aussi sûre et aussi simple pour les utilisateurs.
-      `
-    },
-    {
-      id: "dns",
-      numero: 2,
-      cadre: "Homelab",
-      titre: "Filtrer et chiffrer mes requêtes DNS",
-      besoin: `
-        Chez moi, tous les appareils envoyaient leurs requêtes DNS en clair, et rien ne bloquait les publicités, les traceurs ou les domaines malveillants. Je cherchais une solution pour filtrer ces requêtes sur tout le réseau, puis pour les chiffrer.
-      `
-    },
-    {
       id: "bastion",
-      numero: 3,
+      numero: 1,
       cadre: "Homelab",
       titre: "Centraliser et tracer les accès d'administration",
       besoin: `

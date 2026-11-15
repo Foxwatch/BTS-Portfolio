@@ -28,9 +28,6 @@ window.LISTE_CONTENU = [
 
   // Veille technologique : la page, puis les exemples (dans l'ordre d'affichage)
   "veille.js",
-  "veille/ztna.js",
-  "veille/adguard-home.js",
-  "veille/dot-ou-doh.js",
   "veille/guacamole.js",
   "veille/teleport.js",
   "veille/wallix-bastion.js"

@@ -23,7 +23,7 @@ ajouterExempleVeille({
         3. **enregistre** la session, pour savoir après coup ce qui a été fait.
       `,
       illustrations: [
-        { fichier: "e4_veille3_ex1_sans-ou-avec-bastion.svg", legende: "Sans bastion, un accès direct par serveur ; avec bastion, une seule porte d'entrée contrôlée" }
+        { fichier: "e4_veille1_ex1_sans-ou-avec-bastion.svg", legende: "Sans bastion, un accès direct par serveur ; avec bastion, une seule porte d'entrée contrôlée" }
       ]
     },
     {
@@ -51,7 +51,7 @@ ajouterExempleVeille({
         Je n'ouvrirais plus, pour le profil administrateur du VPN, qu'**un seul accès** : celui du bastion. Tous les accès aux serveurs passeraient par lui et seraient tracés. C'est aussi une compétence recherchée en entreprise, où les bastions sont courants.
       `,
       illustrations: [
-        { fichier: "e4_veille3_comparatif-bastions.svg", legende: "Les trois solutions étudiées, comparées" }
+        { fichier: "e4_veille1_comparatif-bastions.svg", legende: "Les trois solutions étudiées, comparées" }
       ]
     }
   ],
