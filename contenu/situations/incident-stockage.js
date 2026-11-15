@@ -29,7 +29,7 @@ ajouterSituation({
       texte: `
         L'utilisateur signale par ticket que son disque est plein, alors qu'il n'installe habituellement rien. Je commence par regarder l'espace libre du disque C:.
 
-        Les captures de cette situation sont une **reconstitution** réalisée sur un autre PC : le poste de l'utilisateur n'est plus accessible.
+        Les captures de cette situation sont une **reconstitution** réalisée sur mon PC personnel : le poste de l'utilisateur n'est plus accessible, et le logiciel désinstallé y est remplacé par un autre, à titre d'exemple.
       `,
       captures: [
         { fichier: "e4_sit10_etape1_espace-avant.png", legende: "Reconstitution : l'espace libre du disque avant l'intervention", masquer: "nom du PC, nom d'utilisateur" }
@@ -50,7 +50,6 @@ ajouterSituation({
         Avant de toucher à un logiciel constructeur, je vérifie par une recherche sur le web s'il est nécessaire au bon fonctionnement du poste. Ce n'est pas le cas : je peux le désinstaller sans risque.
       `,
       captures: [
-        { fichier: "e4_sit10_etape3_recherche.png", legende: "La recherche qui confirme que le logiciel n'est pas indispensable", masquer: "rien d'obligatoire" }
       ]
     },
     {
@@ -63,7 +62,7 @@ ajouterSituation({
         ~~~
       `,
       captures: [
-        { fichier: "e4_sit10_etape4_desinstallation.png", legende: "Reconstitution : la désinstallation du logiciel", masquer: "nom d'utilisateur" },
+        { fichier: "e4_sit10_etape4_desinstallation.png", legende: "Reconstitution : la désinstallation d'un logiciel (exemple)", masquer: "nom d'utilisateur" },
         { fichier: "e4_sit10_etape4_powercfg.png", legende: "Reconstitution : la désactivation de l'hibernation", masquer: "nom d'utilisateur dans l'invite" }
       ]
     },
