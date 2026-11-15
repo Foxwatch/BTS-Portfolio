@@ -6,7 +6,7 @@
 ajouterSituation({
   id: "inventaire-ad",
   numero: 1,  // définitif : sert au nom des captures (e4_sit1_…)
-  statut: "publie",  // "publie" = visible sur le site ; "brouillon" = caché
+  statut: "brouillon",  // "publie" = visible sur le site ; "brouillon" = caché  (repassé en brouillon le 15/11 : aucune capture réelle pour l'instant)
   type: "pro",  // "pro" | "perso" | "ecole"
   lieu: "Emera",
   titre: "Fiabilisation de l'inventaire via Active Directory",

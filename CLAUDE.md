@@ -146,7 +146,7 @@ compétence = switch dont chaque situation est un port branché.
 
 | N° | id | Type | Statut | Savoir-faire proposés (à faire valider) |
 |---|---|---|---|---|
-| 1 | inventaire-ad | pro | publie | B1.1.1 |
+| 1 | inventaire-ad | pro | brouillon (aucune capture réelle ; les captures de lab viennent d'un TP) | B1.1.1 |
 | 2 | arrivee-depart | pro | publie | B1.2.1, B1.2.2, B1.2.3, B1.1.3 |
 | 3 | etiquetage-tablettes | pro | brouillon (accord du tuteur) | B1.1.1 |
 | 4 | deploiement-postes | pro | brouillon | B1.5.2, B1.5.3 |
@@ -156,7 +156,9 @@ compétence = switch dont chaque situation est un port branché.
 | 8 | audit-visibilite | pro | brouillon (à réaliser) | B1.3.2 |
 | 9 | lab-mode-projet | ecole | brouillon (à réaliser) | B1.4.1-3, T.1 |
 
-Les situations 1, 2 et 6 sont rédigées. Leurs captures manquent : chaque
+**15/11/2026 (veille de l'examen blanc)** : captures masquées des situations 2 (13) et 6 (11) ajoutées, CV public (adresse, âge et téléphone masqués) ajouté en image et en PDF. Manquent encore : `e4_sit6_etape2_assistant-ports.png` et `e4_sit6_etape11_journal-requetes.png`.
+
+Les situations 1, 2 et 6 sont rédigées. Leurs captures manquaient au départ : chaque
 emplacement affiche le chemin exact du fichier attendu et ce qu'il faut masquer.
 Dès qu'un fichier est déposé à ce chemin, il s'affiche. Quelques
 `[À COMPLÉTER]` restent (sit. 1 : méthode d'extraction et de comparaison ;

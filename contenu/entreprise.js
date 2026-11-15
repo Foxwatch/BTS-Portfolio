@@ -17,8 +17,8 @@ definirEntreprise({
     { libelle: "Secteur", valeur: "Résidences services et établissements médicalisés pour seniors" },
     { libelle: "Siège", valeur: "Mougins (Alpes-Maritimes)" },
     { libelle: "Implantation", valeur: "France et Belgique [À COMPLÉTER : autres pays, nombre d'établissements]" },
-    { libelle: "Mon service", valeur: "Support informatique [À COMPLÉTER : taille de l'équipe]" },
-    { libelle: "Alternance", valeur: "[À COMPLÉTER : date de début et rythme]" }
+    { libelle: "Mon service", valeur: "Support informatique : équipe N1 de 4 personnes, épaulée par une équipe N2" },
+    { libelle: "Alternance", valeur: "3 jours en entreprise, 2 jours en cours" }
   ],
 
   mission: `

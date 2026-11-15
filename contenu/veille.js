@@ -24,7 +24,7 @@ definirVeille({
   planning: {
     jour: "mercredi",   // en minuscules : lundi, mardi, mercredi, jeudi ou vendredi
     heure: "15 h",
-    duree: "[À COMPLÉTER : durée]"
+    duree: "1 h"
   },
 
   methode: `
