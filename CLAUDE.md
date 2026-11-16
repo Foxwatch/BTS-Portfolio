@@ -236,7 +236,7 @@ FortiOS 5.4 n'est plus maintenu : à mentionner en conclusion.
 performance (PageSpeed), accessibilité, présence en ligne. Ne rien publier sur
 la sécurité du site. Accord du tuteur nécessaire.
 
-**Sit. 9 : Mode projet (B1.4 + transverse).** Adaim est un peu le leader de son
+**Sit. 9 : Mode projet (B1.4 + transverse).** 16/11/2026 : il existe un projet de groupe en cours, mais les consignes ont été réparties à l'oral et le support préparé par Adaim n'a pas été utilisé par le groupe. Piste : récupérer ce support, rédiger la fiche projet et le « qui fait quoi » tels qu'ils ont été décidés, puis suivre et faire le bilan. Ne rien publier sans traces réelles. Adaim est un peu le leader de son
 trio en lab. Lui fournir un kit simple : tableau Trello/GitHub Projects, fiche
 projet d'une page, comptes rendus de point, bilan avec 2-3 indicateurs.
 
