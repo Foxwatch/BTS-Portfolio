@@ -12,7 +12,7 @@ ajouterSituation({
   titre: "Fiabilisation de l'inventaire via Active Directory",
 
   // Savoir-faire validés (codes de contenu/competences.js)
-  competences: ["B1.1.1"],
+  competences: ["B1.1.1", "B1.1.3"],
 
   outils: ["Active Directory (ADUC)", "Microsoft Intune", "Excel"],
 

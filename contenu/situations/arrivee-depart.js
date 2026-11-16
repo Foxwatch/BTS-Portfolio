@@ -15,7 +15,7 @@ ajouterSituation({
   titre: "Arrivée d'un collaborateur sur un poste existant",
 
   // Savoir-faire validés (codes de contenu/competences.js)
-  competences: ["B1.2.1", "B1.2.2", "B1.2.3", "B1.1.3"],
+  competences: ["B1.2.1", "B1.2.2", "B1.2.3", "B1.1.3", "B1.1.2", "B1.5.3"],
 
   outils: ["Freshservice", "Active Directory (ADUC)", "Remote Desktop Manager", "Microsoft 365", "Outlook"],
 

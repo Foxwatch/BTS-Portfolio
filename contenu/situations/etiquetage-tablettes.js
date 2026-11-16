@@ -8,7 +8,7 @@ ajouterSituation({
   titre: "Préparation et traçabilité des tablettes lors d'un renouvellement de parc",
 
   // Savoir-faire validés (codes de contenu/competences.js)
-  competences: ["B1.1.1"],
+  competences: ["B1.1.1", "T.1"],
 
   outils: ["Tablettes Android", "Enrôlement par QR code", "Étiqueteuse", "Microsoft Teams"],
 

@@ -8,7 +8,7 @@ ajouterSituation({
   titre: "Segmentation réseau et accès sécurisé aux services avec un FortiWiFi 60D",
 
   // Savoir-faire validés (codes de contenu/competences.js)
-  competences: ["B1.1.3", "B1.5.2"],
+  competences: ["B1.1.3", "B1.5.2", "B1.5.1", "B1.6.1", "B1.6.4"],
 
   outils: ["FortiWiFi 60D (FortiOS 5.4)", "Proxmox", "AdGuard Home", "Nginx", "WireGuard"],
 

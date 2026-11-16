@@ -8,7 +8,7 @@ ajouterSituation({
   titre: "Incident : disque saturé sur le poste d'un utilisateur",
 
   // Savoir-faire validés (codes de contenu/competences.js)
-  competences: ["B1.2.1", "B1.2.2"],
+  competences: ["B1.2.1", "B1.2.2", "B1.2.3"],
 
   outils: ["Freshservice", "WinDirStat", "Windows (Applications, powercfg)"],
 

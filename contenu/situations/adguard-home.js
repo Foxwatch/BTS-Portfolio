@@ -12,7 +12,7 @@ ajouterSituation({
   titre: "Filtrage DNS avec AdGuard Home",
 
   // Savoir-faire validés (codes de contenu/competences.js)
-  competences: ["B1.5.1", "B1.5.2"],
+  competences: ["B1.5.1", "B1.5.2", "B1.6.1"],
 
   outils: ["Raspberry Pi", "AdGuard Home", "SSH", "ufw", "Certificat TLS", "Android"],
 
